@@ -4,7 +4,7 @@ import math
 
 ANCHO = 700
 ALTO = 400
-CENTRO = ANCHO/2, ALTO/2
+CENTRO = [ANCHO/2, ALTO/2]
 ROJO = (255,0,0) #rgb
 VERDE = (0,255,0)
 AZUL = (0,0,255)
@@ -31,10 +31,10 @@ class V:#vector
     def setFinalPoint(self, pf):
         self.pf = pf
 
-    def getInitialPoint():
+    def getInitialPoint(self):
         return pi
 
-    def getFinalPoint():
+    def getFinalPoint(self):
         return pf
 
 
@@ -53,28 +53,28 @@ class L: #linea
     def setFinalPoint(self, pf):
         self.pf = pf
 
-    def getInitialPoint():
+    def getInitialPoint(self):
         return pi
 
-    def getFinalPoint():
+    def getFinalPoint(self):
         return pf
 
 def imprime(o, c, a): #objeto, color, ancho
-    pygame.draw.line(pantalla, c, c.getInitialPoint, c.getFinalPoint, a)
+    pygame.draw.line(pantalla, c, c.getInitialPoint(), c.getFinalPoint(), a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def sumaVec(v1, v2) :
     #para mostrar el metodo del paralelogramo
-    v1_c = V(v1.getFinalPoint) #copia del v1
-    v2_c = V(v2.getFinalPoint)
+    v1_c = V(v1.getFinalPoint()) #copia del v1
+    v2_c = V(v2.getFinalPoint())
 
-    v1_c.setInitialPoint(v2.getFinalPoint) #empieza donde termina el segundo vector
-    v2_c.setInitialPoint(v1.getFinalPoint)
+    v1_c.setInitialPoint(v2.getFinalPoint()) #empieza donde termina el segundo vector
+    v2_c.setInitialPoint(v1.getFinalPoint() + v2.getFinalPoint())
 
     imprime(v1_c, AZUL, 3)
     imprime(v2_c, AZUL, 3)
 
-    return V(v1.pi[0] + v2.pi[0], v1.pf[0] + v2.pf[0]) #retorna el vector de la suma
+    return V(v1.getFinalPoint()) #retorna el vector de la suma
 
 pygame.init()
 
@@ -107,9 +107,9 @@ v2 = V([0,0], p2)
 imprime(v1, VERDE, 3)
 
 #suma de vectores
-#v3 = sumaVec(v1, v2)
+v3 = sumaVec(v1, v2)
 
-#imprime(v3, VERDE, 3)
+imprime(v3, VERDE, 3)
 
 
 while True:
