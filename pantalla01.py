@@ -38,12 +38,23 @@ class V:#vector
         y2 = CENTRO[1] - pf[1]
         self.pf_ = [x2,y2]
 
+    def setInitialPointTranslate(self, pi):
+        self.pi_ = pi
+
+    def setFinalPointTranslate(self, pf):
+        self.pf_ = pf
+
     def getInitialPoint(self):
         return self.pi_
 
     def getFinalPoint(self):
         return self.pf_
 
+    def getPi(self):
+        return self.pi
+
+    def getPf(self):
+        return self.pf
 
 class L: #linea
     def __init__(self,pi,pf):
@@ -60,11 +71,12 @@ class L: #linea
     def setFinalPoint(self, pf):
         self.pf = pf
 
-    def getInitialPoint(self):
+    def getInitialPoint(self): #retorna el punto inicial trasladado
         return self.pi
 
     def getFinalPoint(self):
         return self.pf
+
 
 def imprime(o, c, a): #objeto, color, ancho
     pygame.draw.line(pantalla, c, o.getInitialPoint(), o.getFinalPoint(), a)
@@ -75,13 +87,16 @@ def sumaVec(v1, v2) :
     v1_c = V(v1.getFinalPoint()) #copia del v1
     v2_c = V(v2.getFinalPoint())
 
-    v1_c.setInitialPoint(v2.getFinalPoint()) #empieza donde termina el segundo vector
-    v2_c.setInitialPoint(v1.getFinalPoint() + v2.getFinalPoint())
+    v1_c.setInitialPointTranslate(v2.getFinalPoint()) #empieza donde termina el segundo vector
+    v2_c.setInitialPointTranslate(v1.getFinalPoint() + v2.getFinalPoint())
 
-    imprime(v1_c, AZUL, 3)
-    imprime(v2_c, AZUL, 3)
-
-    return V(v1.getFinalPoint()) #retorna el vector de la suma
+    #imprime(v1_c, AZUL, 3)
+    #imprime(v2_c, AZUL, 3)
+    p1 = v1.getPf()
+    p2 = v2.getPf()
+    x = p1[0] + p2[0]
+    y = p1[1] + p2[1]
+    return V([x,y]) #retorna el vector de la suma
 
 pygame.init()
 
@@ -101,25 +116,21 @@ imprime(r1, ROJO, 3)
 imprime(r2, AZUL, 3)
 
 p1 = [50, 50]
-p2 = [-50, -50]
+p2 = [-50, 50]
 
 #construimos el vector
 v1 = V(p1)
 v2 = V(p2)
 
-print v1.getInitialPoint()
-print v1.getFinalPoint()
-
 #imprimimos el vector
 imprime(v1, VERDE, 3)
 imprime(v2, VERDE, 3)
-'''
+
 #suma de vectores
 v3 = sumaVec(v1, v2)
-
+print v3.getFinalPoint()
 imprime(v3, VERDE, 3)
 
-'''
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
