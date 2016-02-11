@@ -11,31 +11,31 @@ AZUL = (0,0,255)
 
 class V:#vector
     def __init__(self,pf): #recibe los puntos como si el centro fuera 0,0
-        self.pi = [0,0] #punto inicial de todo vector
+        pi = [0,0] #punto inicial de todo vector
         self.pf = pf
 
         #puntos iniciales trasladados
-        x1 = pi[0] + CENTRO[0]
-        y1 = pi[1] + CENTRO[1]
+        x1 = CENTRO[0] - pi[0]
+        y1 = CENTRO[1] - pi[1]
         self.pi_ = [x1,y1]
 
         #puntos finales trasladados
-        x2 = pf[0] + CENTRO[0]
-        y2 = pf[1] - CENTRO[1]
+        x2 = CENTRO[0] + pf[0]
+        y2 = CENTRO[1] - pf[1]
         self.pf_ = [x2,y2]
 
     def setInitialPoint(self, pi):
         self.pi = pi
         #puntos iniciales trasladados
-        x1 = pi[0] + CENTRO[0]
-        y1 = pi[1] + CENTRO[1]
+        x1 = CENTRO[0] - pi[0]
+        y1 = CENTRO[1] - pi[1]
         self.pi_ = [x1,y1]
 
     def setFinalPoint(self, pf):
         self.pf = pf
         #puntos finales trasladados
-        x = pf[0] + CENTRO[0]
-        y = pf[1] - CENTRO[1]
+        x2 = CENTRO[0] + pf[0]
+        y2 = CENTRO[1] - pf[1]
         self.pf_ = [x2,y2]
 
     def getInitialPoint(self):
@@ -49,10 +49,10 @@ class L: #linea
     def __init__(self,pi,pf):
         self.pi = pi
         self.pf = pf
-        x1 = pi[0] + CENTRO[0]
-        x2 = pi[1] + CENTRO[1]
-        y1 = pf[0] - CENTRO[0]
-        y2 = pf[1] - CENTRO[1]
+        x1 = CENTRO[0] + pi[0]
+        x2 = CENTRO[1] + pi[1]
+        y1 = CENTRO[0] - pf[0]
+        y2 = CENTRO[1] - pf[1]
 
     def setInitialPoint(self, pi):
         self.pi = pi
@@ -96,9 +96,6 @@ pf = [ANCHO/2, ALTO]
 r1 = L(pini, pfin)
 r2 = L(pi, pf)
 
-#pygame.draw.line(pantalla, ROJO, pfin, pini, 3)
-#pygame.draw.line(pantalla, AZUL, pi, pf, 3)
-
 #dibujamos el plano cartesiano
 imprime(r1, ROJO, 3)
 imprime(r2, AZUL, 3)
@@ -114,8 +111,8 @@ print v1.getInitialPoint()
 print v1.getFinalPoint()
 
 #imprimimos el vector
-#imprime(v1, VERDE, 3)
-#imprime(v2, VERDE, 3)
+imprime(v1, VERDE, 3)
+imprime(v2, VERDE, 3)
 '''
 #suma de vectores
 v3 = sumaVec(v1, v2)
