@@ -83,19 +83,22 @@ def imprime(o, c, a): #objeto, color, ancho
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def sumaVec(v1, v2) :
-    #para mostrar el metodo del paralelogramo
-    v1_c = V(v1.getFinalPoint()) #copia del v1
-    v2_c = V(v2.getFinalPoint())
-
-    v1_c.setInitialPointTranslate(v2.getFinalPoint()) #empieza donde termina el segundo vector
-    v2_c.setInitialPointTranslate(v1.getFinalPoint() + v2.getFinalPoint())
-
-    #imprime(v1_c, AZUL, 3)
-    #imprime(v2_c, AZUL, 3)
+    #Para el vector resultante suma
     p1 = v1.getPf()
     p2 = v2.getPf()
     x = p1[0] + p2[0]
     y = p1[1] + p2[1]
+
+    #Para mostrar el metodo del paralelogramo
+    v1_c = V([x,y])
+    v2_c = V([x,y])
+
+    v1_c.setInitialPointTranslate(v2.getFinalPoint()) #empieza donde termina el segundo vector
+    v2_c.setInitialPointTranslate(v1.getFinalPoint())
+
+    imprime(v1_c, AZUL, 3)
+    imprime(v2_c, AZUL, 3)
+
     return V([x,y]) #retorna el vector de la suma
 
 pygame.init()
@@ -116,7 +119,7 @@ imprime(r1, ROJO, 3)
 imprime(r2, AZUL, 3)
 
 p1 = [50, 50]
-p2 = [-50, 50]
+p2 = [30, 70]
 
 #construimos el vector
 v1 = V(p1)
@@ -128,7 +131,7 @@ imprime(v2, VERDE, 3)
 
 #suma de vectores
 v3 = sumaVec(v1, v2)
-print v3.getFinalPoint()
+
 imprime(v3, VERDE, 3)
 
 while True:
