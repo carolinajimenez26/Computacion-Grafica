@@ -86,9 +86,7 @@ def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
     pass
 
 def imprimeRecta(o, c, a): #objeto, color, ancho
-    pygame.draw.line(pantalla, c, Transform([X_MIN,o.getY(X_MIN)]), o.getInitialPointTranslate(), a)
-    pygame.draw.line(pantalla, c, o.getInitialPointTranslate(), o.getFinalPointTranslate(), a)
-    pygame.draw.line(pantalla, c, o.getFinalPointTranslate(), Transform([X_MAX,o.getY(X_MAX)]), a)
+    pygame.draw.line(pantalla, c, Transform([X_MIN,o.getY(X_MIN)]), Transform([X_MAX,o.getY(X_MAX)]), a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
