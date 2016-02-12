@@ -31,10 +31,10 @@ class R:#recta
         self.pf_ = pf
 
     def getInitialPointTranslate(self):#retorna el punto inicial trasladado
-        return Transform(pi)
+        return Transform(self.pi)
 
-    def getFinalPoint(self):#retorna el punto final trasladado
-        return Transform(pf)
+    def getFinalPointTranslate(self):#retorna el punto final trasladado
+        return Transform(self.pf)
 
     def getPi(self):#retorna el punto inicial sin traslacion
         return self.pi
@@ -46,13 +46,13 @@ class R:#recta
         return (self.pf[1] - self.pf[0])/(self.pi[1] - self.pi[0])
 
     def getb(self): # b = y - mx
-        return self.pf[0] - getPendiente()*self.pi[0]
+        return self.pf[0] - self.getPendiente()*self.pi[0]
 
     def getEcuation(self):
-        return "y = " + getPendiente() + "x " + getb()
+        return "y = " , self.getPendiente() , "x " , self.getb()
 
     def getY(self,x): #dado x se --- en la ecuacion de la recta y se retorna y
-        return getPendiente()*x + getb()
+        return self.getPendiente()*x + self.getb()
 
 class L: #linea(para el plano cartesiano)
     def __init__(self,pi,pf):
@@ -78,16 +78,18 @@ class L: #linea(para el plano cartesiano)
 
 def Transform(p): #transforma un punto de la pantalla al plano cartesiano
     #puntos iniciales trasladados
-    x1 = CENTRO[0] - pi[0]
-    y1 = CENTRO[1] - pi[1]
-    return [x1,y1]
+    x = CENTRO[0] - p[0]
+    y = CENTRO[1] - p[1]
+    return [x,y]
 
 def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
+    pass
 
 def imprimeRecta(o, c, a): #objeto, color, ancho
-    for i in range (X_MIN, X_MAX):
-        #pygame.draw.line(pantalla, c, o.getInitialPoint(), o.getFinalPoint(), a)
-        #pygame.display.flip() #actualizar la pantalla, funcion de refresco
+    pygame.draw.line(pantalla, c, Transform([X_MIN,o.getY(X_MIN)]), o.getInitialPointTranslate(), a)
+    pygame.draw.line(pantalla, c, o.getInitialPointTranslate(), o.getFinalPointTranslate(), a)
+    pygame.draw.line(pantalla, c, o.getFinalPointTranslate(), Transform([X_MAX,o.getY(X_MAX)]), a)
+    pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
     pygame.draw.line(pantalla, c, o.getInitialPoint(), o.getFinalPoint(), a)
@@ -113,6 +115,8 @@ pygame.init()
 
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
+#dibuja el plano cartesiano
+makePlane()
 
 print "Punto A:"
 ax = raw_input("ax: ")
@@ -122,9 +126,11 @@ print "Punto B:"
 bx = raw_input("bx: ")
 by = raw_input("by: ")
 
-A = [ax, ay]
-B = [bx, by]
+A = [int(ax), int(ay)]
+B = [int(bx), int(by)]
 
+recta = R(A,B)
+imprimeRecta(recta, AZUL, 3)
 
 while True:
     for event in pygame.event.get():
