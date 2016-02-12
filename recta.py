@@ -43,7 +43,11 @@ class R:#recta
         return self.pf
 
     def getPendiente(self): #(y2-y1)/(x2-x1)
-        return (self.pf[1] - self.pf[0])/(self.pi[1] - self.pi[0])
+        x = (self.pi[1] - self.pi[0])
+        if x == 0 :
+            return 0
+        else :
+            return (self.pf[1] - self.pf[0])/x
 
     def getb(self): # b = y - mx
         return self.pf[0] - self.getPendiente()*self.pi[0]
@@ -99,7 +103,6 @@ def makePlane(): #construye el plano cartesiano
 
     pi = [ANCHO/2, 0]
     pf = [ANCHO/2, ALTO]
-
 
     r1 = L(pini, pfin)
     r2 = L(pi, pf)
