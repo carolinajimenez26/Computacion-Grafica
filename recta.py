@@ -53,7 +53,7 @@ class R:#recta
         return self.pf[0] - self.getPendiente()*self.pi[0]
 
     def getEcuation(self):
-        return "y = " , self.getPendiente() , "x " , self.getb()
+        return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
 
     def getY(self,x): #dado x se --- en la ecuacion de la recta y se retorna y
         return self.getPendiente()*x + self.getb()
@@ -80,17 +80,20 @@ class L: #linea(para el plano cartesiano)
         return self.pf
 
 
-def Transform(p): #transforma un punto de la pantalla al plano cartesiano
-    #puntos iniciales trasladados
-    x = CENTRO[0] - p[0]
-    y = CENTRO[1] - p[1]
-    return [x,y]
+def TransformX(x): #transforma un punto de la pantalla al plano cartesiano
+    return CENTRO[0] + x
 
-def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
-    pass
+def TransformY(y):
+    return CENTRO[1] - y
+
+def AntiTransform(x): #transforma un punto del plano cartesiano a la pantalla
+    return CENTRO[0] - x
+
+def AntiTransformY(y):
+    return CENTRO[1] + y
 
 def imprimeRecta(o, c, a): #objeto, color, ancho
-    pygame.draw.line(pantalla, c, Transform([X_MIN,o.getY(X_MIN)]), Transform([X_MAX,o.getY(X_MAX)]), a)
+    pygame.draw.line(pantalla, c, [X_MIN,AntiTransformY(o.getY(TransformX(X_MIN)))], [X_MAX,AntiTransformY(o.getY(TransformX(X_MAX)))], a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
@@ -112,13 +115,6 @@ def makePlane(): #construye el plano cartesiano
     imprime(r2, ROJO, 3)
 
 
-pygame.init()
-
-pantalla = pygame.display.set_mode([ANCHO,ALTO])
-
-#dibuja el plano cartesiano
-makePlane()
-
 print "Punto A:"
 ax = raw_input("ax: ")
 ay = raw_input("ay: ")
@@ -130,8 +126,20 @@ by = raw_input("by: ")
 A = [int(ax), int(ay)]
 B = [int(bx), int(by)]
 
+pygame.init()
+
+pantalla = pygame.display.set_mode([ANCHO,ALTO])
+
+pygame.draw.circle(pantalla, ROJO, [TransformX(A),TransformY(B)], 1, 1)
+
+#dibuja el plano cartesiano
+makePlane()
+
+
 recta = R(A,B)
-imprimeRecta(recta, AZUL, 3)
+#imprimeRecta(recta, AZUL, 3)
+
+print "Ecuacion de la recta: " , recta.getEcuation()
 
 while True:
     for event in pygame.event.get():
