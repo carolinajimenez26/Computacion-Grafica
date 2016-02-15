@@ -130,7 +130,7 @@ pygame.init()
 
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
-pygame.draw.circle(pantalla, ROJO, [TransformX(A),TransformY(B)], 1, 1)
+pygame.draw.circle(pantalla, ROJO, [TransformX(A),TransformY(B)], 2, 1)
 
 #dibuja el plano cartesiano
 makePlane()
