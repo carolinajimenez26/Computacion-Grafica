@@ -50,6 +50,9 @@ class R:#recta
     def getb(self): # b = y - mx
         return self.pf[1] - self.getPendiente()*self.pf[0]
 
+    def getb(self): # b = y - mx
+        return self.pf[1] - self.getPendiente()*self.pf[0]
+
     def getEcuation(self):
         return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
 
