@@ -9,9 +9,6 @@ CENTRO = [ANCHO/2, ALTO/2]
 ROJO = (255,0,0) #rgb
 VERDE = (0,255,0)
 AZUL = (0,0,255)
-X_MIN = ANCHO/2 - ANCHO
-X_MAX = ANCHO/2 + ANCHO
-
 
 class R:#recta
     def __init__(self,pi,pf): #recibe los puntos como si el centro fuera 0,0
@@ -43,14 +40,15 @@ class R:#recta
         return self.pf
 
     def getPendiente(self): #(y2-y1)/(x2-x1)
-        x = (self.pi[1] - self.pi[0])
+        x =  (self.pf[0] - self.pi[0])
         if x == 0 :
-            return 0
+            print "error"
         else :
-            return (self.pf[1] - self.pf[0])/x
+            return float(self.pf[1] - self.pi[1])/x
+
 
     def getb(self): # b = y - mx
-        return self.pf[0] - self.getPendiente()*self.pi[0]
+        return self.pf[1] - self.getPendiente()*self.pf[0]
 
     def getEcuation(self):
         return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
@@ -86,14 +84,14 @@ def TransformX(x): #transforma un punto de la pantalla al plano cartesiano
 def TransformY(y):
     return CENTRO[1] - y
 
-def AntiTransform(x): #transforma un punto del plano cartesiano a la pantalla
-    return CENTRO[0] - x
+def AntiTransformX(x): #transforma un punto del plano cartesiano a la pantalla
+    return x - CENTRO[0]
 
 def AntiTransformY(y):
     return CENTRO[1] + y
 
 def imprimeRecta(o, c, a): #objeto, color, ancho
-    pygame.draw.line(pantalla, c, [X_MIN,AntiTransformY(o.getY(TransformX(X_MIN)))], [X_MAX,AntiTransformY(o.getY(TransformX(X_MAX)))], a)
+    pygame.draw.line(pantalla, c, [0,TransformY(o.getY(AntiTransformX(0)))], [ANCHO,TransformY(o.getY(AntiTransformX(ANCHO)))], a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
@@ -111,33 +109,37 @@ def makePlane(): #construye el plano cartesiano
     r2 = L(pi, pf)
 
     #dibujamos el plano cartesiano
-    imprime(r1, ROJO, 3)
-    imprime(r2, ROJO, 3)
+    imprime(r1, ROJO, 1)
+    imprime(r2, ROJO, 1)
 
+def makeCircle(p, r): #recibe un punto de la pantalla, no hay que trasladarlo
+    pygame.draw.circle(pantalla, VERDE, p, r, 1)
+    pygame.display.flip()
 
 print "Punto A:"
-ax = raw_input("ax: ")
-ay = raw_input("ay: ")
+ax = int(input("ax: "))
+ay = int(input("ay: "))
 
 print "Punto B:"
-bx = raw_input("bx: ")
-by = raw_input("by: ")
+bx = int(input("bx: "))
+by = int(input("by: "))
 
-A = [int(ax), int(ay)]
-B = [int(bx), int(by)]
+A = [ax, ay]
+B = [bx, by]
 
 pygame.init()
 
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
-pygame.draw.circle(pantalla, ROJO, [TransformX(A),TransformY(B)], 2, 1)
-
 #dibuja el plano cartesiano
 makePlane()
 
+makeCircle([TransformX(ax),TransformY(ay)], 1)
+makeCircle([TransformX(bx),TransformY(by)], 1)
+
 
 recta = R(A,B)
-#imprimeRecta(recta, AZUL, 3)
+imprimeRecta(recta, AZUL, 1)
 
 print "Ecuacion de la recta: " , recta.getEcuation()
 
