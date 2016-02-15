@@ -116,12 +116,29 @@ def makeCircle(p, r): #recibe un punto de la pantalla, no hay que trasladarlo
     pygame.draw.circle(pantalla, VERDE, p, r, 1)
     pygame.display.flip()
 
+print "Punto A:"
+ax = int(input("ax: "))
+ay = int(input("ay: "))
+
+print "Punto B:"
+bx = int(input("bx: "))
+by = int(input("by: "))
+
+A = [ax, ay]
+B = [bx, by]
+
 pygame.init()
 
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
 #dibuja el plano cartesiano
 makePlane()
+
+makeCircle([TransformX(ax),TransformY(ay)], 1)
+makeCircle([TransformX(bx),TransformY(by)], 1)
+recta = R(A,B)
+imprimeRecta(recta, AZUL, 1)
+print "Ecuacion de la recta: " , recta.getEcuation()
 
 while True:
     for event in pygame.event.get():
@@ -132,8 +149,3 @@ while True:
             x2,y2 = event.pos
             print "x1: ", x1, " y1: ", y1
             print "x2: ", x2, " y2: ", y2
-            makeCircle([TransformX(x1),TransformY(y1)], 1)
-            makeCircle([TransformX(x2),TransformY(y2)], 1)
-            #recta = R([x1,y1],[x2,y2])
-            #imprimeRecta(recta, AZUL, 1)
-            #print "Ecuacion de la recta: " , recta.getEcuation()
