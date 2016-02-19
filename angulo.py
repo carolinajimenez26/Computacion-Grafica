@@ -73,7 +73,7 @@ def TransformY(y):
     return CENTRO[1] - y
 
 def AntiTransformX(x): #transforma un punto del plano cartesiano a la pantalla
-    return x - CENTRO[0]
+    return CENTRO[0] - x
 
 def AntiTransformY(y):
     return CENTRO[1] + y

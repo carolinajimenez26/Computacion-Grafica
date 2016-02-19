@@ -6,12 +6,10 @@ pi = 3.1415
 ANCHO = 700
 ALTO = 400
 CENTRO = [ANCHO/2, ALTO/2]
-ROJO = (255,0,0) #rgb
+ROJO = (255,0,0)
 VERDE = (0,255,0)
 AZUL = (0,0,255)
 
-#con sen y cos me saca los puntos pero como si comenzara en 0,0; por lo tanto
-#debo trasladarlo al vertice (v.x + cos, v.y + sen)
 
 class T:#Triangulo
     def __init__(self,a,l1,l2): #angulo, lados
@@ -70,7 +68,7 @@ def TransformY(y):
     return CENTRO[1] - y
 
 def AntiTransformX(x): #transforma un punto del plano cartesiano a la pantalla
-    return x - CENTRO[0]
+    return CENTRO[0] - x
 
 def AntiTransformY(y):
     return CENTRO[1] + y
@@ -81,6 +79,7 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
 
 def imprimeTriangulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
     pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(0), AntiTransformY(o.getSide())], a)
+    print "p1:" , [AntiTransformX(0),AntiTransformX(0)]
     makeCircle([AntiTransformX(0),AntiTransformX(0)], 1) #Dibuja el punto del vertice
     pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
     makeCircle([AntiTransformX(o.getX()),AntiTransformY(o.getY())], 1)
