@@ -1,5 +1,3 @@
-#punto en x = rcos (angulo)
-#punto en y = rsen (angulo)
 import pygame
 import sys
 import math
@@ -15,34 +13,33 @@ AZUL = (0,0,255)
 #con sen y cos me saca los puntos pero como si comenzara en 0,0; por lo tanto
 #debo trasladarlo al vertice (v.x + cos, v.y + sen)
 
-class A:#Angulo
-    def __init__(self,a,v): #angulo y vertice (el vertice lo recibe con coordenadas cartesianas)
+class T:#Triangulo
+    def __init__(self,a,l1,l2): #angulo, lados
         self.a = a
-        self.v = v
-
-    def setVertex(self, v): #recibe el vertice sin traslacion
-        self.v = v
+        self.l1 = l1
+        self.l2 = l2
 
     def getX(self): #cos(a) + v.x , Sin traslacion al plano normal
-        return int(self.getRadius()*math.cos(self.a))
+        return int(self.getRadius()*math.cos(self.getAngle()))
 
-    def getY(self): #sen(a) + v.y , Sin traslacion al plano normal
-        return int(self.getRadius()*math.sin(self.a))
+    def getY(self): #y = rsen(a)
+        return int(self.getRadius()*math.sin(self.getAngle()))
 
     def getAngle(self):
         return self.a
+        #return math.arctan(self.getY()/self.getX())
 
-    def getVertex(self):
-        return self.v
-
-    def setAngle(self, a):
+    def setAngle(self, a): #en radianes
         self.a = a
 
-    def setRadius(self,r):
-        self.r = r
+    def setRadius(self,l2):
+        self.l2 = l2
 
     def getRadius(self): #como no nos dan ningun lado fijo, entonces lo fijamos nosotros
-        return 100
+        return self.l2
+
+    def getSide(self):
+        return self.l1
 
 class L: #linea(para el plano cartesiano)
     def __init__(self,pi,pf):
@@ -82,16 +79,13 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
     pygame.draw.line(pantalla, c, o.getInitialPoint(), o.getFinalPoint(), a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
-def imprimeAngulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
-    v = o.getVertex()
-    print "vertex" , o.getVertex()
-    print "radius:" , o.getRadius()
-    print "p1:" , [(v[0]),(v[1])]
-    print "p2:" , [(o.getX()), (o.getY())]
-    print "p1:" , [(v[0]),(v[1])]
-    print "p2:" , [(o.getX()), (o.getY()) - (o.getY())]
-    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
-    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(o.getY()) - AntiTransformY(o.getY())], a)
+def imprimeTriangulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
+    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(0), AntiTransformY(o.getSide())], a)
+    makeCircle([AntiTransformX(0),AntiTransformX(0)], 1) #Dibuja el punto del vertice
+    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
+    makeCircle([AntiTransformX(o.getX()),AntiTransformY(o.getY())], 1)
+    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(o.getSide())] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
+    makeCircle([AntiTransformX(0),AntiTransformY(o.getSide())], 1)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def makePlane(): #construye el plano cartesiano
@@ -119,9 +113,8 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-angulo = A(pi/3,[10,10]) #angle, vertex
-makeCircle([TransformX(10),TransformY(10)], 1) #Dibuja el punto del vertice
-imprimeAngulo(angulo,AZUL,1)
+triangulo = T(pi/3,10,20) #angulo, lados
+imprimeTriangulo(triangulo,AZUL,1)
 
 while True:
     for event in pygame.event.get():
