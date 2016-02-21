@@ -23,8 +23,8 @@ class A:#Angulo
     def setVertex(self, v): #recibe el vertice sin traslacion
         self.v = v
 
-    def getX(self): #cos(a) + v.x , Sin traslacion al plano normal
-        return int(self.getRadius()*math.cos(self.a))
+    def getX(self): # x = rcos (theta)
+        return int(self.getRadius()*math.cos(self.getAngle()))
 
     def getY(self): #sen(a) + v.y , Sin traslacion al plano normal
         return int(self.getRadius()*math.sin(self.a))
@@ -84,14 +84,8 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
 
 def imprimeAngulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
     v = o.getVertex()
-    print "vertex" , o.getVertex()
-    print "radius:" , o.getRadius()
-    print "p1:" , [(v[0]),(v[1])]
-    print "p2:" , [(o.getX()), (o.getY())]
-    print "p1:" , [(v[0]),(v[1])]
-    print "p2:" , [(o.getX()), (o.getY()) - (o.getY())]
     pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
-    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(o.getY()) - AntiTransformY(o.getY())], a)
+    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(v[1])], a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def makePlane(): #construye el plano cartesiano
@@ -119,7 +113,7 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-angulo = A(pi/3,[10,10]) #angle, vertex
+angulo = A(pi/3,[10,10]) #angle, vertex. pi/3 = 60 grados
 makeCircle([TransformX(10),TransformY(10)], 1) #Dibuja el punto del vertice
 imprimeAngulo(angulo,AZUL,1)
 
