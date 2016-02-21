@@ -73,7 +73,7 @@ def TransformY(y):
     return CENTRO[1] - y
 
 def AntiTransformX(x): #transforma un punto del plano cartesiano a la pantalla
-    return CENTRO[0] - x
+    return x - CENTRO[0]
 
 def AntiTransformY(y):
     return CENTRO[1] + y
@@ -84,8 +84,8 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
 
 def imprimeAngulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
     v = o.getVertex()
-    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
-    pygame.draw.line(pantalla, c, [AntiTransformX(v[0]),AntiTransformY(v[1])] , [AntiTransformX(o.getX()), AntiTransformY(v[1])], a)
+    pygame.draw.line(pantalla, c, [TransformX(v[0]),TransformY(v[1])] , [TransformX(o.getX()), TransformY(o.getY())], a)
+    pygame.draw.line(pantalla, c, [TransformX(v[0]),TransformY(v[1])] , [TransformX(o.getX()), TransformY(v[1])], a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def makePlane(): #construye el plano cartesiano
