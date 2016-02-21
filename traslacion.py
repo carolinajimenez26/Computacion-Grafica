@@ -10,6 +10,15 @@ ROJO = (255,0,0)
 VERDE = (0,255,0)
 AZUL = (0,0,255)
 
+class T:#Triangulo
+    def __init__(self,p1,p2,p3): #angulo, tres puntos
+        self.p1 = p1
+        self.p2 = p2
+        self.p3 = p3
+
+    def getPoints(self):
+        return [self.p1, self.p2, self.p3]
+
 class L: #linea(para el plano cartesiano)
     def __init__(self,pi,pf):
         self.pi = pi
@@ -31,6 +40,14 @@ class L: #linea(para el plano cartesiano)
     def getFinalPoint(self):
         return self.pf
 
+def imprimeTriangulo(o, c, a): #objeto, color, ancho
+    pygame.draw.line(pantalla, c, Transform([0,0]) , Transform([0,o.getSide()]), a)
+    makeCircle(AntiTransform([0,0]), 1) #Dibuja el punto del vertice
+    pygame.draw.line(pantalla, c, Transform([0,0]), Transform([o.getX(),o.getY()]), a)
+    makeCircle(Transform([o.getX(),o.getY()]), 1)
+    pygame.draw.line(pantalla, c, Transform([0,o.getSide()]), Transform([o.getX(),o.getY()]), a)
+    makeCircle(Transform([0,o.getSide()]), 1)
+    pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def Transform(p): #transforma un punto de la pantalla al plano cartesiano
     return [(CENTRO[0] + p[0]), (CENTRO[1] - p[1])]
@@ -46,13 +63,11 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def imprimeTriangulo(o, c, a): #objeto, color, ancho
-    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(0)] , [TransformX(0), TransformY(o.getSide())], a)
-    makeCircle([AntiTransformX(0),AntiTransformY(0)], 1) #Dibuja el punto del vertice
-    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(0)] , [TransformX(o.getX()), TransformY(o.getY())], a)
-    makeCircle([TransformX(o.getX()),TransformY(o.getY())], 1)
-    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(o.getSide())] , [TransformX(o.getX()), TransformY(o.getY())], a)
-
-    makeCircle([TransformX(0),TransformY(o.getSide())], 1)
+    p = o.getPoints()
+    print p
+    pygame.draw.line(pantalla, c, Transform(p[0]) , Transform(p[1]), a)
+    pygame.draw.line(pantalla, c, Transform(p[1]) , Transform(p[2]), a)
+    pygame.draw.line(pantalla, c, Transform(p[2]) , Transform(p[0]), a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def makePlane(): #construye el plano cartesiano
@@ -81,9 +96,10 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 makePlane()
 
 p = [0,40]
-pr = Rote(p,pi/2)
-makeCircle(Transform(p),1)
-makeCircle(Transform(pr),1)
+pr = Rote(p,pi/3)
+
+triangulo = T([0,0], p, pr)
+imprimeTriangulo(triangulo, AZUL, 1)
 
 while True:
     for event in pygame.event.get():
