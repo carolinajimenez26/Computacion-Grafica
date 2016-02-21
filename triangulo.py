@@ -17,7 +17,7 @@ class T:#Triangulo
         self.l1 = l1
         self.l2 = l2
 
-    def getX(self): #cos(a) + v.x , Sin traslacion al plano normal
+    def getX(self): #x = cos(a)
         return int(self.getRadius()*math.cos(self.getAngle()))
 
     def getY(self): #y = rsen(a)
@@ -77,14 +77,14 @@ def imprime(o, c, a): #objeto, color, ancho (esta funcion es para el plano carte
     pygame.draw.line(pantalla, c, o.getInitialPoint(), o.getFinalPoint(), a)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
-def imprimeTriangulo(o, c, a): #objeto, color, ancho (esta funcion es para el plano cartesiano)
-    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(0), AntiTransformY(o.getSide())], a)
-    print "p1:" , [AntiTransformX(0),AntiTransformX(0)]
-    makeCircle([AntiTransformX(0),AntiTransformX(0)], 1) #Dibuja el punto del vertice
-    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(0)] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
-    makeCircle([AntiTransformX(o.getX()),AntiTransformY(o.getY())], 1)
-    pygame.draw.line(pantalla, c, [AntiTransformX(0),AntiTransformY(o.getSide())] , [AntiTransformX(o.getX()), AntiTransformY(o.getY())], a)
-    makeCircle([AntiTransformX(0),AntiTransformY(o.getSide())], 1)
+def imprimeTriangulo(o, c, a): #objeto, color, ancho
+    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(0)] , [TransformX(0), TransformY(o.getSide())], a)
+    makeCircle([AntiTransformX(0),AntiTransformY(0)], 1) #Dibuja el punto del vertice
+    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(0)] , [TransformX(o.getX()), TransformY(o.getY())], a)
+    makeCircle([TransformX(o.getX()),TransformY(o.getY())], 1)
+    pygame.draw.line(pantalla, c, [TransformX(0),TransformY(o.getSide())] , [TransformX(o.getX()), TransformY(o.getY())], a)
+
+    makeCircle([TransformX(0),TransformY(o.getSide())], 1)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
 def makePlane(): #construye el plano cartesiano
@@ -112,7 +112,7 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-triangulo = T(pi/3,10,20) #angulo, lados
+triangulo = T(pi,10,100) #angulo, lados
 imprimeTriangulo(triangulo,AZUL,1)
 
 while True:
