@@ -26,7 +26,7 @@ class Square:#cuadrado
     def Draw(self, color):
         p = self.getVectors()
         for v in p: #dibujamos cada vector
-            v.Draw(AZUL)
+            v.Draw(color)
 
     def moveTo(self, pivote):#se mueve a un punto
         p = self.getVectors()
@@ -42,23 +42,14 @@ class Square:#cuadrado
 
     def scale(self, s): #escalar todos los puntos del cuadrado. Puede reducirlos como agrandarlos
         p = self.getVectors()
-        i = 1
         pivote = p[0].getPoints()[0]#Debe ser el mismo punto
         for v in p:#por cada vector que hay en p
-            print i
-
             #Primero se pasa al origen
             v.returnTo(pivote)
-
             #Despues se escala
             v.scale(s)
-
             #Despues se devuelve al punto inicial
             v.moveTo(pivote)
-            v.Draw(VERDE)
-            if i == 4 :
-                return
-            i = i + 1
 
 
 class Cube:
@@ -72,6 +63,10 @@ class Cube:
     def setSquares(self,s1,s2,s3,s4,s5,s6):
         self.arrPoints = [p1,p2,p3,p4]
 
+    def Draw(self, color):
+        p = self.getSquares() #sacamos todos los cuadrados del cubo
+        for s in p : #para cada uno de ellos
+            s.Draw(color)
 
 
 libreria1.makePlane()
@@ -118,12 +113,10 @@ side3 = Square(V_[0],base_copy_vectors[2],V3,V4)
 
 #LADO4
 side4 = Square(V2,V3,V_[1], base_copy_vectors[3])
-side4.Draw(VERDE)
+#side4.Draw(AZUL)
 
-side4.scale(2)
-#side4.Draw(ROJO)
-
-#iso1 = Cube(base,base_copy,side1,side2,side3,side4)
+iso1 = Cube(base,base_copy,side1,side2,side3,side4)
+iso1.Draw(AZUL)
 
 while True:
     for event in pygame.event.get():
