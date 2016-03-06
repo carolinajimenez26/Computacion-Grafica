@@ -16,7 +16,7 @@ class V:#vector
     def __init__(self,pi,pf):#pi = x1,y1, pf = x2,y2
         self.pf = pf
         self.pi = pi
-        self.m = self.getMagnitud(pi,pf)
+        #self.m = self.getMagnitud(pi,pf)
 
     def getPoints(self): #[(x1,y1),(x2,y2)]
         return [self.pi,self.pf]
@@ -25,11 +25,11 @@ class V:#vector
         self.pi = pi
         self.pf = pf
 
-    def getMagnitud(self, pi, pf):#sqrt((x2-x1)**2+(y2-y1)**2)
-        return math.sqrt((pf[0]-pi[0])**2+(pf[1]-pi[1])**2)
+    '''def getMagnitud(self, pi, pf):#sqrt((x2-x1)**2+(y2-y1)**2)
+        return (math.sqrt((pf[0]-pi[0])**2+(pf[1]-pi[1])**2)
 
     def setMagnitud(self, m):
-        self.m = m
+        self.m = m'''
 
     def Draw(self, color):#dibuja el vector
         p = self.getPoints()
@@ -90,6 +90,25 @@ class A:#Angulo
         makeLine(color, 1, self.getVertex(), p[0])
         makeLine(color, 1, self.getVertex(), p[1])
 
+def VectorAdd(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
+    pv1 = v1.getPoints()[1] #Nos interesa solo el punto final. [(v1_x,v1_y)]
+    pv2 = v2.getPoints()[1] #[(v2_x,v2_y)]
+    p = [(pv1[0]+pv2[0]),(pv1[1]+pv2[1])] #[(v1_x+v2_x2),(v1_y1+v2_y2)]
+    v = V(v1.getPoints()[0],p)
+    v.Draw(BLANCO)
+    parallelogramMethod(v1,v2,v) #para que lo muestre graficamente
+    #return v
+
+def parallelogramMethod(v1,v2,v):#crea los otros vectores que son el resultado de la suma de v1 y v2
+    pv1 = v1.getPoints() #[(x1,y1),(x2,y2)]
+    pv2 = v2.getPoints()
+    pv = v.getPoints()
+    print pv1 , pv2 , pv
+    v1_ = V(pv1[1],pv[1]) #inicia donde termina v1 y termina donde termina v
+    v1_.Draw(AZUL)
+    v2_ = V(pv2[1],pv[1])
+    v2_.Draw(AZUL)
+
 def DrawPolygon(points):#cantidad de puntos en la figura
     for i in range(1,points + 1):
         makeCircle(Transform(Polar(100,(2*pi/points)*i)),2)
@@ -139,9 +158,12 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
 #dibuja el plano cartesiano
 makePlane()
-a = A(pi/4, [50,50])
-a.Draw(BLANCO)
-print a.getPoints()
+
+v1 = V([0,0],[50,50])
+v1.Draw(AZUL)
+v2 = V([0,0],[50,0])
+v2.Draw(AZUL)
+VectorAdd(v1,v2)
 
 while True:
     for event in pygame.event.get():
