@@ -101,7 +101,7 @@ def moveToPoint(p, pivote):#se translada a un punto
 def scale(point, scale):
 	nx = point[0]*scale
 	ny = point[1]*scale
-	return (nx,ny)
+	return [nx,ny]
 
 pygame.init()
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
@@ -109,14 +109,13 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-v = V([50,50],[100,100])
+v = V([0,0],[100,100])
 v.Draw(BLANCO)
 points = v.getPoints() #[(x1,y1),(x2,y2)]
-v.setPoints(moveToCenter(points[0],points[0]),moveToCenter(points[1],points[0]))
+points = [scale(points[0],5),scale(points[1],5)]
+v.setPoints(points[0],points[1])
+print v.getPoints()
 v.Draw(ROJO)
-points = v.getPoints() #new points
-v.setPoints(moveToPoint(points[0],points[1]),moveToPoint(points[1],points[1]))
-v.Draw(AZUL)
 
 while True:
     for event in pygame.event.get():
