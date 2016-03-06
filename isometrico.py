@@ -42,13 +42,13 @@ class Square:#cuadrado
 
 class Cube:
     #Un cubo es un conjunto de cuadrados
-    def __init__(self,s1,s2,s3,s4):
-        self.arrPoints = [s1,s2,s3,s4]
+    def __init__(self,s1,s2,s3,s4,s5,s6):#un cubo tiene 6 lados
+        self.arrPoints = [s1,s2,s3,s4,s5,s6]
 
-    def getPoints(self):
+    def getSquares(self):
         return self.arrPoints
 
-    def setPoints(self, p1,p2,p3,p4):
+    def setSquares(self,s1,s2,s3,s4,s5,s6):
         self.arrPoints = [p1,p2,p3,p4]
 
 
@@ -74,6 +74,20 @@ base.Draw(VERDE)
 base_copy = copy.deepcopy(base) #El cuadrado de arriba es exactamente el mismo, pero trasladado
 base_copy.moveTo([0,20]) #sube traslada a un punto
 base_copy.Draw(AZUL)
+base_copy_vectors = base_copy.getVectors()#vectores de base_copy
+A_copy = base_copy_vectors[0].getPoints()#el primer vector es la copia de A
+B_copy = base_copy_vectors[1].getPoints()#el segundo vector es la copia de B
+
+#LADO1
+V1 = libreria1.V(VA.getPoints()[0], A_copy[0])
+V2 = libreria1.V(VA.getPoints()[1], A_copy[1])
+side1 = Square(VA,base_copy_vectors[0],V1,V2)
+side1.Draw(AZUL)
+
+#LADO2
+V2 = libreria1.V(VB.getPoints()[1], B_copy[1])
+side2 = Square(VB,base_copy_vectors[1],V1,V2)
+side2.Draw(AZUL)
 
 while True:
     for event in pygame.event.get():
