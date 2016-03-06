@@ -26,11 +26,11 @@ class V:#vector
         self.pi = pi
         self.pf = pf
 
-    '''def getMagnitud(self, pi, pf):#sqrt((x2-x1)**2+(y2-y1)**2)
-        return (math.sqrt((pf[0]-pi[0])**2+(pf[1]-pi[1])**2)
+    def getMagnitud(self):#sqrt((x2-x1)**2+(y2-y1)**2)
+        return math.sqrt((self.pf[0]-self.pi[0])**2+(self.pf[1]-self.pi[1])**2)
 
     def setMagnitud(self, m):
-        self.m = m'''
+        self.m = m
 
     def Draw(self, color):#dibuja el vector
         p = self.getPoints()
@@ -176,6 +176,9 @@ v2.Draw(AZUL)
 v3 = VectorSub(v1,v2)
 v3.Draw(VERDE)
 parallelogramMethod(v1,v2,v3)
+
+print v3.getPoints()
+print v3.getMagnitud()
 
 while True:
     for event in pygame.event.get():
