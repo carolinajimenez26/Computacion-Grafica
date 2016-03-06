@@ -21,9 +21,6 @@ class V:#vector
     def getPoints(self): #[(x1,y1),(x2,y2)]
         return [self.pi,self.pf]
 
-    def getMagnitud(self):
-        return self.m
-
     def setPoints(self, pi, pf):
         self.pi = pi
         self.pf = pf
@@ -34,9 +31,9 @@ class V:#vector
     def setMagnitud(self, m):
         self.m = m
 
-    def Draw(self):#dibuja el vector
+    def Draw(self, color):#dibuja el vector
         p = self.getPoints()
-        makeLine(BLANCO, 1, p[0], p[1])
+        makeLine(color, 1, p[0], p[1])
 
 class A:#Angulo
     def __init__(self,a,v): #angulo y vertice (el vertice lo recibe con coordenadas cartesianas)
@@ -94,10 +91,10 @@ def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
 def Rote(p,a): #puntos, angulo. Retorna un punto
     return [int(p[0]*math.cos(a) - p[1]*math.sin(a)), int(p[0]*math.sin(a) + p[1]*math.cos(a))]
 
-def translateToCenter(p, pivote): #se translada al centro
+def moveToCenter(p, pivote): #se translada al centro
     return [p[0]-pivote[0],p[1]-pivote[1]]
 
-def translateToPoint(p, pivote):#se translada a un punto
+def moveToPoint(p, pivote):#se translada a un punto
     return [p[0]+pivote[0],p[1]+pivote[1]]
 
 #escalar un punto
@@ -113,7 +110,10 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 makePlane()
 
 v = V([50,50],[100,100])
-v.Draw()
+v.Draw(BLANCO)
+points = v.getPoints() #[(x1,y1),(x2,y2)]
+v.setPoints(moveToCenter(points[0],points[0]),moveToCenter(points[1],points[0]))
+v.Draw(ROJO)
 
 while True:
     for event in pygame.event.get():
