@@ -114,6 +114,9 @@ v.Draw(BLANCO)
 points = v.getPoints() #[(x1,y1),(x2,y2)]
 v.setPoints(moveToCenter(points[0],points[0]),moveToCenter(points[1],points[0]))
 v.Draw(ROJO)
+points = v.getPoints() #new points
+v.setPoints(moveToPoint(points[0],points[1]),moveToPoint(points[1],points[1]))
+v.Draw(AZUL)
 
 while True:
     for event in pygame.event.get():
