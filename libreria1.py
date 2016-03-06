@@ -103,9 +103,9 @@ def VectorAdd(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
     pv2 = v2.getPoints()[1] #[(v2_x,v2_y)]
     p = [(pv1[0]+pv2[0]),(pv1[1]+pv2[1])] #[(v1_x+v2_x2),(v1_y1+v2_y2)]
     v = V(v1.getPoints()[0],p)
-    v.Draw(BLANCO)
-    parallelogramMethod(v1,v2,v) #para que lo muestre graficamente
-    #return v
+    #v.Draw(BLANCO)
+    #parallelogramMethod(v1,v2,v) #para que lo muestre graficamente
+    return v
 
 def VectorSub(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
     #v1 + (-v2)
@@ -117,9 +117,10 @@ def parallelogramMethod(v1,v2,v):#crea los otros vectores que son el resultado d
     pv2 = v2.getPoints()
     pv = v.getPoints()
     v1_ = V(pv1[1],pv[1]) #inicia donde termina v1 y termina donde termina v
-    v1_.Draw(AZUL)
+    #v1_.Draw(AZUL)
     v2_ = V(pv2[1],pv[1])
-    v2_.Draw(ROJO)
+    #v2_.Draw(AZUL)
+    return [v1_,v2_]
 
 def DrawPolygon(points):#cantidad de puntos en la figura
     for i in range(1,points + 1):

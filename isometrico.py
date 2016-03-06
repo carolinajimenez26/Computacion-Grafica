@@ -1,6 +1,7 @@
 import libreria1
 import pygame
 import sys
+pi = 3.1415
 
 ANCHO = 700
 ALTO = 400
@@ -10,34 +11,53 @@ VERDE = (0,255,0)
 AZUL = (0,0,255)
 BLANCO = (255,255,255)
 
-
 class Square:#cuadrado
-    #un cuadrado es un conjunto de puntos
-    def __init__(self,p1,p2,p3,p4):
-        self.arrPoints = [p1,p2,p3,p4]
+    #un cuadrado es un conjunto de vectores
+    def __init__(self,v1,v2,v3,v4):
+        self.arrPoints = [v1,v2,v3,v4]
 
     def getPoints(self):
         return self.arrPoints
 
     def setPoints(self, p1,p2,p3,p4):
-        self.arrPoints = [p1,p2,p3,p4] #se reemplazan
+        self.arrPoints = [v1,v2,v3,v4] #se reemplazan
 
-'''class Cube:
+    def Draw(self, color):
+        p = self.getPoints()
+        for v in p: #dibujamos cada vector
+            v.Draw(AZUL)
+
+
+class Cube:
     #Un cubo es un conjunto de cuadrados
-    __init__(self,s1,s2,s3,s4):
-        self.arrPoints = [s1,s2,s3,s4]'''
+    def __init__(self,s1,s2,s3,s4):
+        self.arrPoints = [s1,s2,s3,s4]
+
+    def getPoints(self):
+        return self.arrPoints
+
+    def setPoints(self, p1,p2,p3,p4):
+        self.arrPoints = [p1,p2,p3,p4]
 
 
-print "holaa"
-cuadrado = Square([0,0],[0,10],[10,0],[10,10])
-points = cuadrado.getPoints()
-for p in points:
-    print p
-    print "hola"
 
-pantalla = pygame.display.set_mode([ANCHO,ALTO])
-libreria1.makePlane(pantalla)
-#libreria1.main()
+libreria1.makePlane()
+
+#ISOMETRICO1
+A = libreria1.Polar(100,libreria1.DegToRad(30))
+B = libreria1.Polar(80,libreria1.DegToRad(135))
+
+VA = libreria1.V([0,0],A)
+VA.Draw(AZUL)
+VB = libreria1.V([0,0],B)
+VB.Draw(AZUL)
+
+V_SUMA = libreria1.VectorAdd(VA,VB)
+#V_SUMA.Draw(BLANCO)
+V_ =libreria1.parallelogramMethod(VA,VB,V_SUMA)
+
+base = Square(VA,VB,V_[0],V_[1])
+base.Draw(VERDE)
 
 while True:
     for event in pygame.event.get():
