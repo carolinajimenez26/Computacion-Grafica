@@ -42,7 +42,14 @@ class Square:#cuadrado
 
     def scale(self, s): #escalar todos los puntos del cuadrado. Puede reducirlos como agrandarlos
         p = self.getVectors()
-        pivote = p[0].getPoints()[0]#Debe ser el mismo punto
+
+        for i in p:
+            print i.getPoints()
+
+        pivote = p[0].getPoints()[1]#Debe ser el mismo punto
+        #pivote = [86, 49]
+        print "pivote: " , pivote
+
         for v in p:#por cada vector que hay en p
             #Primero se pasa al origen
             v.returnTo(pivote)
@@ -50,6 +57,8 @@ class Square:#cuadrado
             v.scale(s)
             #Despues se devuelve al punto inicial
             v.moveTo(pivote)
+
+        print "-----------------------------------"
 
 
 class Cube:
@@ -67,6 +76,27 @@ class Cube:
         p = self.getSquares() #sacamos todos los cuadrados del cubo
         for s in p : #para cada uno de ellos
             s.Draw(color)
+
+    def moveTo(self, pivote):#mueve cada uno de los cuadrados del cubo a un punto
+        p = self.getSquares()
+        for s in p : #para cada cuadrado en p
+            s.moveTo(pivote)
+
+    def returnTo(self, pivote):#retorna cada uno de los cuadrados del cubo al origen
+        p = self.getSquares()
+        for s in p : #para cada cuadrado en p
+            s.returnTo(pivote)
+
+    def scale(self, s):#escala cada uno de los cuadrados
+        p = self.getSquares()
+        for i in range (0,6):
+            #p[i].Draw(BLANCO)
+            p[i].scale(0.8)
+            if i == 5:
+                p[i].Draw(VERDE)
+            else :
+                print i
+
 
 
 libreria1.makePlane()
@@ -116,7 +146,21 @@ side4 = Square(V2,V3,V_[1], base_copy_vectors[3])
 #side4.Draw(AZUL)
 
 iso1 = Cube(base,base_copy,side1,side2,side3,side4)
-iso1.Draw(AZUL)
+#iso1.Draw(AZUL)
+
+p = iso1.getSquares()
+
+'''for s in p: #vamos a escalar cada cuadrado
+    s.Draw(BLANCO)
+    s.scale(0.8)
+    s.Draw(VERDE)
+
+p[3].Draw(BLANCO)
+p[3].scale(0.8)
+p[3].Draw(VERDE)'''
+
+#iso1.scale(0.8)
+#iso1.Draw(ROJO)
 
 while True:
     for event in pygame.event.get():
