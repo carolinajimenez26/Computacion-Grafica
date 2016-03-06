@@ -2,6 +2,7 @@
 import pygame
 import sys
 import math
+import copy
 pi = 3.1415
 
 ANCHO = 700
@@ -90,6 +91,11 @@ class A:#Angulo
         makeLine(color, 1, self.getVertex(), p[0])
         makeLine(color, 1, self.getVertex(), p[1])
 
+def oppositeVector(v):#el opuesto de un vector
+    p = v.getPoints()[1] #si esta en el origen no nos interesa el pi
+    v.setPoints(v.getPoints()[0],[p[0]*-1,p[1]*-1])
+    return v
+
 def VectorAdd(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
     pv1 = v1.getPoints()[1] #Nos interesa solo el punto final. [(v1_x,v1_y)]
     pv2 = v2.getPoints()[1] #[(v2_x,v2_y)]
@@ -99,15 +105,19 @@ def VectorAdd(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
     parallelogramMethod(v1,v2,v) #para que lo muestre graficamente
     #return v
 
+def VectorSub(v1,v2):#Suma de vectores (Deben tener vertice en el centro)
+    #v1 + (-v2)
+    v2_copy = copy.deepcopy(v2)
+    return oppositeVector(v2_copy)
+
 def parallelogramMethod(v1,v2,v):#crea los otros vectores que son el resultado de la suma de v1 y v2
     pv1 = v1.getPoints() #[(x1,y1),(x2,y2)]
     pv2 = v2.getPoints()
     pv = v.getPoints()
-    print pv1 , pv2 , pv
     v1_ = V(pv1[1],pv[1]) #inicia donde termina v1 y termina donde termina v
     v1_.Draw(AZUL)
     v2_ = V(pv2[1],pv[1])
-    v2_.Draw(AZUL)
+    v2_.Draw(ROJO)
 
 def DrawPolygon(points):#cantidad de puntos en la figura
     for i in range(1,points + 1):
@@ -163,7 +173,9 @@ v1 = V([0,0],[50,50])
 v1.Draw(AZUL)
 v2 = V([0,0],[50,0])
 v2.Draw(AZUL)
-VectorAdd(v1,v2)
+v3 = VectorSub(v1,v2)
+v3.Draw(VERDE)
+parallelogramMethod(v1,v2,v3)
 
 while True:
     for event in pygame.event.get():
