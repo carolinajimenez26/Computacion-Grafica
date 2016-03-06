@@ -84,9 +84,9 @@ class A:#Angulo
 
 def DrawPolygon(points):#cantidad de puntos en la figura
     for i in range(1,points + 1):
-        makeCircle(Transform(Polares(100,(2*pi/points)*i)),2)
-        p1 = Polares(100,(2*pi/points)*i)
-        p2 = Polares(100,(2*pi/points)*(i+1))
+        makeCircle(Transform(Polar(100,(2*pi/points)*i)),2)
+        p1 = Polar(100,(2*pi/points)*i)
+        p2 = Polar(100,(2*pi/points)*(i+1))
         makeLine(AZUL, 1, p1, p2)
 
 def makeLine(c, a, p1, p2): #color, ancho, puntos
@@ -123,17 +123,15 @@ def scale(point, scale):
 	ny = point[1]*scale
 	return [nx,ny]
 
+def Polar(r, a):#radio y angulo. x = rcos(theta), y = rsin(theta)
+    return [int(r*math.cos(a)), int(r*math.sin(a))]
+
 pygame.init()
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
 #dibuja el plano cartesiano
 makePlane()
-
-t = T([0,0],[50,50],[50,0])
-t.Draw(AZUL)
-points = t.getPoints()
-t.setPoints([Rote(points[0],pi/4),Rote(points[1],pi/4),Rote(points[2],pi/4)])
-t.Draw(ROJO)
+DrawPolygon(5)
 
 while True:
     for event in pygame.event.get():
