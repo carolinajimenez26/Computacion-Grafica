@@ -62,7 +62,10 @@ class A:#Angulo
         self.r = 100 #inicialmente
 
     def getPoints(self):# x = rcos (theta), y = rsin(theta)
-        return [int(self.getRadius()*math.cos(self.getAngle())), int(self.getRadius()*math.sin(self.a))]
+        #p1 = [int(self.getRadius()*math.cos(self.getAngle())), int(self.getRadius()*math.sin(self.a))]
+        p2 = [self.getVertex()[0] + self.getRadius(), self.getVertex()[1]]
+        p1 = Rote(p2,self.getAngle())
+        return [p1,p2]
 
     def getAngle(self):
         return self.a
@@ -81,6 +84,11 @@ class A:#Angulo
 
     def getRadius(self): #como no nos dan ningun lado fijo, entonces lo fijamos nosotros
         return self.r
+
+    def Draw(self, color):
+        p = self.getPoints() #[(x1,y1),(x2,y2)]
+        makeLine(color, 1, self.getVertex(), p[0])
+        makeLine(color, 1, self.getVertex(), p[1])
 
 def DrawPolygon(points):#cantidad de puntos en la figura
     for i in range(1,points + 1):
@@ -131,7 +139,9 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
 #dibuja el plano cartesiano
 makePlane()
-DrawPolygon(5)
+a = A(pi/4, [50,50])
+a.Draw(BLANCO)
+print a.getPoints()
 
 while True:
     for event in pygame.event.get():
