@@ -76,7 +76,7 @@ def makeCircle(p, r):
     pygame.draw.circle(pantalla, VERDE, p, r, 1)
     pygame.display.flip()
 
-def Polares(r, a):#radio y angulo
+def Polar(r, a):#radio y angulo. x = rcos(theta), y = rsin(theta)
     return [int(r*math.cos(a)), int(r*math.sin(a))]
 
 pygame.init()
