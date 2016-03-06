@@ -169,17 +169,6 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-v1 = V([0,0],[50,50])
-v1.Draw(AZUL)
-v2 = V([0,0],[50,0])
-v2.Draw(AZUL)
-v3 = VectorSub(v1,v2)
-v3.Draw(VERDE)
-parallelogramMethod(v1,v2,v3)
-
-print v3.getPoints()
-print v3.getMagnitud()
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
