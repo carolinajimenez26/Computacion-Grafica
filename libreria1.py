@@ -38,6 +38,22 @@ class V:#vector
         p = self.getPoints()
         makeLine(color, 1, p[0], p[1])
 
+    def scale(self, s):#se escala el vector
+        p = self.getPoints()
+        self.setPoints(scale(p[0],s),scale(p[1],s))
+
+    def moveTo(self,pivote):
+        p = self.getPoints()
+        self.setPoints(moveToPoint(p[0],pivote),moveToPoint(p[1],pivote))
+
+    def returnTo(self,pivote):
+        p = self.getPoints()
+        self.setPoints(moveToCenter(p[0],pivote),moveToCenter(p[1],pivote))
+
+    def Rote(self, angle): #rota los puntos del vector
+        p = self.getPoints() #[pi,pf] = [(x1,y1),(x2,y2)]
+        self.setPoints(Rote(p[0],angle),Rote(p[1],angle))
+
 class T:#Triangulo
     def __init__(self,p1,p2,p3): #puntos
         self.p1 = p1
@@ -152,10 +168,10 @@ def Rote(p,a): #puntos, angulo. Retorna un punto
     return [int(p[0]*math.cos(a) - p[1]*math.sin(a)), int(p[0]*math.sin(a) + p[1]*math.cos(a))]
 
 def moveToCenter(p, pivote): #se translada al centro
-    return [p[0]-pivote[0],p[1]-pivote[1]]
+    return [ int(p[0] - pivote[0]), int(p[1] - pivote[1]) ]
 
 def moveToPoint(p, pivote):#se translada a un punto
-    return [p[0]+pivote[0],p[1]+pivote[1]]
+    return [ int(p[0] + pivote[0]), int(p[1] +  pivote[1]) ]
 
 #escalar un punto
 def scale(point, scale):
