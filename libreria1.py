@@ -35,6 +35,26 @@ class V:#vector
         p = self.getPoints()
         makeLine(color, 1, p[0], p[1])
 
+class T:#Triangulo
+    def __init__(self,p1,p2,p3): #puntos
+        self.p1 = p1
+        self.p2 = p2
+        self.p3 = p3
+
+    def getPoints(self):#recibe los tres puntos que construye el triangulo
+        return [self.p1,self.p2,self.p3]
+
+    def setPoints(self,p):#recibe lista de puntos [(x1,y1),(x2,y2),(x3,y3)]
+        self.p1 = p[0]
+        self.p2 = p[1]
+        self.p3 = p[2]
+
+    def Draw(self, color):
+        p = self.getPoints()
+        makeLine(color, 1, p[0], p[1])
+        makeLine(color, 1, p[0], p[2])
+        makeLine(color, 1, p[1], p[2])
+
 class A:#Angulo
     def __init__(self,a,v): #angulo y vertice (el vertice lo recibe con coordenadas cartesianas)
         self.a = a
@@ -109,13 +129,11 @@ pantalla = pygame.display.set_mode([ANCHO,ALTO])
 #dibuja el plano cartesiano
 makePlane()
 
-v = V([0,0],[100,100])
-v.Draw(BLANCO)
-points = v.getPoints() #[(x1,y1),(x2,y2)]
-points = [scale(points[0],5),scale(points[1],5)]
-v.setPoints(points[0],points[1])
-print v.getPoints()
-v.Draw(ROJO)
+t = T([0,0],[50,50],[50,0])
+t.Draw(AZUL)
+points = t.getPoints()
+t.setPoints([Rote(points[0],pi/4),Rote(points[1],pi/4),Rote(points[2],pi/4)])
+t.Draw(ROJO)
 
 while True:
     for event in pygame.event.get():
