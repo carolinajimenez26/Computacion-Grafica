@@ -13,6 +13,8 @@ VERDE = (0,255,0)
 AZUL = (0,0,255)
 BLANCO = (255,255,255)
 
+pantalla = pygame.display.set_mode([ANCHO,ALTO])
+
 class V:#vector
     def __init__(self,pi,pf):#pi = x1,y1, pf = x2,y2
         self.pf = pf
@@ -163,13 +165,8 @@ def scale(point, scale):
 def Polar(r, a):#radio y angulo. x = rcos(theta), y = rsin(theta)
     return [int(r*math.cos(a)), int(r*math.sin(a))]
 
-pygame.init()
-pantalla = pygame.display.set_mode([ANCHO,ALTO])
+def RadToDeg(r):#radianes a grados
+    return r*(180/pi)
 
-#dibuja el plano cartesiano
-makePlane()
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit(0)
+def DegToRad(d):#grados a radianes
+    return d*(pi/180)
