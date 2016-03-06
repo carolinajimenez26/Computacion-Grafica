@@ -60,20 +60,20 @@ A = libreria1.Polar(100,libreria1.DegToRad(30))
 B = libreria1.Polar(80,libreria1.DegToRad(135))
 
 VA = libreria1.V([0,0],A)
-VA.Draw(AZUL)
+#VA.Draw(AZUL)
 VB = libreria1.V([0,0],B)
-VB.Draw(AZUL)
+#VB.Draw(AZUL)
 
 V_SUMA = libreria1.VectorAdd(VA,VB)
 #V_SUMA.Draw(BLANCO)
-V_ =libreria1.parallelogramMethod(VA,VB,V_SUMA)
+V_ = libreria1.parallelogramMethod(VA,VB,V_SUMA)
 
 base = Square(VA,VB,V_[0],V_[1])
-base.Draw(VERDE)
+#base.Draw(VERDE)
 
 base_copy = copy.deepcopy(base) #El cuadrado de arriba es exactamente el mismo, pero trasladado
 base_copy.moveTo([0,20]) #sube traslada a un punto
-base_copy.Draw(AZUL)
+#base_copy.Draw(AZUL)
 base_copy_vectors = base_copy.getVectors()#vectores de base_copy
 A_copy = base_copy_vectors[0].getPoints()#el primer vector es la copia de A
 B_copy = base_copy_vectors[1].getPoints()#el segundo vector es la copia de B
@@ -82,12 +82,24 @@ B_copy = base_copy_vectors[1].getPoints()#el segundo vector es la copia de B
 V1 = libreria1.V(VA.getPoints()[0], A_copy[0])
 V2 = libreria1.V(VA.getPoints()[1], A_copy[1])
 side1 = Square(VA,base_copy_vectors[0],V1,V2)
-side1.Draw(AZUL)
+#side1.Draw(AZUL)
 
 #LADO2
 V2 = libreria1.V(VB.getPoints()[1], B_copy[1])
 side2 = Square(VB,base_copy_vectors[1],V1,V2)
-side2.Draw(AZUL)
+#side2.Draw(AZUL)
+
+#LADO3
+V3 = libreria1.V(V_SUMA.getPoints()[1], libreria1.moveToPoint(V_SUMA.getPoints()[1],[0,20]))
+V4 = libreria1.V(A,A_copy[1])
+side3 = Square(V_[0],base_copy_vectors[2],V3,V4)
+#side3.Draw(AZUL)
+
+#LADO4
+side4 = Square(V2,V3,V_[1], base_copy_vectors[3])
+#side4.Draw(AZUL)
+
+iso1 = Cube(base,base_copy,side1,side2,side3,side4)
 
 while True:
     for event in pygame.event.get():
