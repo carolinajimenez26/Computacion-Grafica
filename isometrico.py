@@ -1,6 +1,7 @@
 import libreria1
 import pygame
 import sys
+import copy
 pi = 3.1415
 
 ANCHO = 700
@@ -16,17 +17,28 @@ class Square:#cuadrado
     def __init__(self,v1,v2,v3,v4):
         self.arrPoints = [v1,v2,v3,v4]
 
-    def getPoints(self):
+    def getVectors(self):
         return self.arrPoints
 
-    def setPoints(self, p1,p2,p3,p4):
+    def setVectors(self,p1,p2,p3,p4):
         self.arrPoints = [v1,v2,v3,v4] #se reemplazan
 
     def Draw(self, color):
-        p = self.getPoints()
+        p = self.getVectors()
         for v in p: #dibujamos cada vector
             v.Draw(AZUL)
 
+    def moveTo(self, pivote):#se mueve a un punto
+        p = self.getVectors()
+        for v in p:#por cada vector que hay en p
+            point = v.getPoints() #[(x1,y1),(x2,y2)]
+            v.setPoints(libreria1.moveToPoint(point[0],pivote), libreria1.moveToPoint(point[1],pivote))
+
+    def returnTo(self, pivote):#se devuelve a un punto
+        p = self.getVectors()
+        for v in p:#por cada vector que hay en p
+            point = v.getPoints() #[(x1,y1),(x2,y2)]
+            v.setPoints(libreria1.moveToCenter(point[0],pivote), libreria1.moveToCenter(point[1],pivote))
 
 class Cube:
     #Un cubo es un conjunto de cuadrados
@@ -58,6 +70,10 @@ V_ =libreria1.parallelogramMethod(VA,VB,V_SUMA)
 
 base = Square(VA,VB,V_[0],V_[1])
 base.Draw(VERDE)
+
+base_copy = copy.deepcopy(base) #El cuadrado de arriba es exactamente el mismo, pero trasladado
+base_copy.moveTo([0,20]) #sube traslada a un punto
+base_copy.Draw(AZUL)
 
 while True:
     for event in pygame.event.get():
