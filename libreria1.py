@@ -154,8 +154,8 @@ def makePlane(): #construye el plano cartesiano
     pygame.draw.line(pantalla, ROJO, [ANCHO/2,0], [ANCHO/2,ALTO], 2)
     pygame.display.flip() #actualizar la pantalla, funcion de refresco
 
-def makeCircle(p, r): #recibe un punto de la pantalla, no hay que trasladarlo
-    pygame.draw.circle(pantalla, VERDE, p, r, 1)
+def makeCircle(p, r, color): #recibe un punto de la pantalla, no hay que trasladarlo
+    pygame.draw.circle(pantalla, color, p, r, 1)
     pygame.display.flip()
 
 def Transform(p): #transforma un punto de la pantalla al plano cartesiano
