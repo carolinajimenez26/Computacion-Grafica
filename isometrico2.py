@@ -11,12 +11,16 @@ ROJO = (255,0,0)
 VERDE = (0,255,0)
 AZUL = (0,0,255)
 BLANCO = (255,255,255)
+NEGRO = (0,0,0)
 
 
-def imprimeLista(l):
+def imprimeLista(l,color):
     for e in l:
-        e.Draw(AZUL)
+        e.Draw(color)
 
+def rotarFigura(l, a):
+    for e in l:
+        e.Rote(a)
 
 libreria1.makePlane()
 
@@ -92,9 +96,16 @@ v_l.append(v)
 #v17
 v = libreria1.V(v3.getPoints()[0],v.getPoints()[1])
 v_l.append(v)
+reloj = pygame.time.Clock()
 
-imprimeLista(v_l) #imprime lista de vectores 
-
+i = 0
+while(i < 210):
+    rotarFigura(v_l, libreria1.DegToRad(i))
+    imprimeLista(v_l, VERDE) #imprime lista de vectores
+    reloj.tick(1)
+    imprimeLista(v_l, NEGRO) #imprime lista de vectores
+    i += 30
+    print i
 
 while True:
     for event in pygame.event.get():
