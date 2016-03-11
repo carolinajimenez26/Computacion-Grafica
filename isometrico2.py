@@ -99,11 +99,12 @@ v_l.append(v)
 reloj = pygame.time.Clock()
 
 i = 0
-while(i < 210):
-    rotarFigura(v_l, libreria1.DegToRad(i))
+while(i < 360):
+    rotarFigura(v_l, libreria1.DegToRad(30))
     imprimeLista(v_l, VERDE) #imprime lista de vectores
     reloj.tick(1)
-    imprimeLista(v_l, NEGRO) #imprime lista de vectores
+    if i != 360-30:
+        imprimeLista(v_l, NEGRO) #imprime lista de vectores
     i += 30
     print i
 
