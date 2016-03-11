@@ -165,7 +165,7 @@ def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
     return [(CENTRO[0] - p[0]),(CENTRO[1] + p[1])]
 
 def Rote(p,a): #puntos, angulo. Retorna un punto
-    return [int(p[0]*math.cos(a) - p[1]*math.sin(a)), int(p[0]*math.sin(a) + p[1]*math.cos(a))]
+    return [float(p[0]*math.cos(a) - p[1]*math.sin(a)), float(p[0]*math.sin(a) + p[1]*math.cos(a))]
 
 def moveToCenter(p, pivote): #se translada al centro
     return [ int(p[0] - pivote[0]), int(p[1] - pivote[1]) ]
