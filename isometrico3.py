@@ -146,7 +146,17 @@ v.moveTo(v2.getPoints()[1])
 v_l.append(v)
 
 mueveLista(v_l)#porque la pantalla no me alcanza
-imprimeLista(v_l, AZUL) #imprime lista de vectores
+#imprimeLista(v_l, AZUL) #imprime lista de vectores
+
+reloj = pygame.time.Clock()
+i = 0
+while(i < 360):
+    rotarFigura(v_l, libreria1.DegToRad(30))
+    imprimeLista(v_l, VERDE) #imprime lista de vectores
+    reloj.tick(1)
+    if i != 360-30:
+        imprimeLista(v_l, NEGRO) #imprime lista de vectores
+    i += 30
 
 while True:
     for event in pygame.event.get():
