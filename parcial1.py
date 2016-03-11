@@ -10,11 +10,34 @@ AZUL = (0,0,255)
 BLANCO = (255,255,255)
 NEGRO = (0,0,0)
 
+class TT:
+    def __init__(self, lista):
+        self.lista = lista
+
+    def copyT(self):
+        T_copy = copy.deepcopy(self)
+        return T_copy
+
+    def Draw(self, color):
+        for e in self.lista:
+            e.Draw(color)
+
+    def Rotar(self, a):
+        for e in self.lista:
+            e.Rote(a)
+
 def imprimeLista(l,color):
     for e in l:
         e.Draw(color)
 
+def rotarFigura(l, a):
+    for e in l:
+        e.Rote(a)
+
 libreria1.makePlane()
+
+#-----------------1------------------------
+
 
 v_l = [] #aqui van a quedar todos los vectores de la figura
 
@@ -92,9 +115,31 @@ v = libreria1.V([0,0],libreria1.Polar(50,libreria1.DegToRad(180+90)))
 v.moveTo(v_l[17].getPoints()[0])
 v_l.append(v)
 
-imprimeLista(v_l, AZUL) #imprime lista de vectores
+#imprimeLista(v_l, AZUL) #imprime lista de vectores
+
+#------------------2--------------------------
+
+T = []
+
+v = libreria1.V([0,0],[0,50])
+T.append(v)
+
+v = libreria1.V([0,0],[-50,0])
+v.moveTo(T[0].getPoints()[1])
+T.append(v)
+
+v = libreria1.V([0,0],[50,0])
+v.moveTo(T[0].getPoints()[1])
+T.append(v)
+
+t = TT(T)
+
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit(0)
+        else :
+            imprimeLista(T, NEGRO) #imprime lista de vectores
+            rotarFigura(T,libreria1.DegToRad(30))
+            imprimeLista(T, VERDE) #imprime lista de vectores
