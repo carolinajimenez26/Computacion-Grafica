@@ -187,3 +187,6 @@ def RadToDeg(r):#radianes a grados
 
 def DegToRad(d):#grados a radianes
     return d*(pi/180)
+
+def DrawPixel(p,color):
+    pantalla.set_at(p,color)

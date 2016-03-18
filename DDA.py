@@ -45,22 +45,36 @@ def swap(p1,p2):#intercambia dos puntos
 def DDA_X(recta, case):
     # case 0 : Xk+1 = Xk + 1/m
     # case 1 : Xk+1 = Xk + 1/(-m)
-    if(case == 1):
+    if(case == 1):#ya no vamos de A hacia B, si no al contrario
         [A,B] = swap(recta.getPoints())
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
-        new_y = pivote[1] + recta.getPendiente()
-        new_x = ( new_y - recta.getb() )/recta.getPendiente()
+        libreria1.DrawPixel(pivote, AZUL)
+        new_x = round( pivote[0] + (1/recta.getPendiente()) )
+        new_y = round(recta.getPendiente()*new_x + recta.getb())
         new_point = [new_x,new_y]
-        new_rect = R(recta.getPoints()[0],new_point) #recta que se genera
+        new_rect = R(pivote,new_point) #recta que se genera
+        libreria1.DrawPixel(new_point, AZUL)
+        if(new_x >= pivote[0]): #Xk+1 >= Xk
+            return #parada
+        pivote = new_rect #actualiza
 
 def DDA_Y(recta, case):
     # case 0 : # Yk+1 = Yk + m
     # case 1 : # Yk+1 = Yk - m
-    if(case == 1):
+    if(case == 1):#ya no vamos de A hacia B, si no al contrario
         [A,B] = swap(recta.getPoints())
     while(True):
-
+        pivote = recta.getPoints()[0] # recta.[x1,y1]
+        libreria1.DrawPixel(pivote, AZUL)
+        new_y = round(pivote[1] + recta.getPendiente())
+        new_x = round(( new_y - recta.getb() ) x/ recta.getPendiente())
+        new_point = [new_x,new_y]
+        new_rect = R(pivote,new_point) #recta que se genera
+        libreria1.DrawPixel(new_point, AZUL)
+        if(new_y <= pivote[1]): #Yk+1 <= Yk
+            return #parada
+        pivote = new_rect #actualiza
 
 
 Ax = int(input("Ax: "))
