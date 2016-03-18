@@ -17,9 +17,10 @@ class R:#recta
         self.pf = pf # [x2,y2]
 
     def getPendiente(self): # m = (y2-y1)/(x2-x1)
-        x = self.pf[0]-self.pi[0]
+        x = float(self.pf[0])-float(self.pi[0])
         if(x != 0):
-            return float((self.pf[1]-self.pi[1])/x)
+            y = float(self.pf[1])-float(self.pi[1])
+            return float(y/x)
         else :
             print "Pendiente indefinida"
             return
@@ -44,24 +45,36 @@ def swap(p1,p2):#intercambia dos puntos
     return [p1,p2]
 
 def DDA_X(recta, case):
+    print "DDA_X"
     # case 0 : Xk+1 = Xk + 1/m
     # case 1 : Xk+1 = Xk + 1/(-m)
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
+    parada = recta.getPoints()[1]
+    print "punto de llegada: " , parada
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
+        print "pivote: " , pivote
         #libreria1.DrawPixel(pivote, AZUL)
-        libreria1.makeCircle(pivote,1,VERDE)
-        new_x = round( pivote[0] + (1/recta.getPendiente()) )
-        new_y = round(recta.getPendiente()*new_x + recta.getb())
+        libreria1.makeCircle(libreria1.Transform(pivote),1,VERDE)
+        new_x = int(round( pivote[0] + (1/recta.getPendiente()) ))
+        new_y = int(round(recta.getPendiente()*new_x + recta.getb()))
         new_point = [new_x,new_y]
-        new_rect = R(pivote,new_point) #recta que se genera
-        libreria1.DrawPixel(new_point, AZUL)
-        if(new_x >= pivote[0]): #Xk+1 >= Xk
+        print "New point: " , new_point
+        libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
+        #ibreria1.DrawPixel(new_point, AZUL)
+        print "new_x: " , new_x
+        print "parada[0]: " , parada[0]
+        if(new_x >= parada[0]): #Xk+1 >= Xk
             return #parada
-        pivote = new_rect #actualiza
+        print "parada: " , parada
+        print "new_y: " , new_y
+        recta.setPoints([new_x,new_y],recta.getPoints()[1]) #actualiza
 
 def DDA_Y(recta, case):
+    print "A1: " ,  recta.getPoints()[0]
+    print "B1: " ,  recta.getPoints()[1]
+    print "DDA_Y"
     # case 0 : # Yk+1 = Yk + m
     # case 1 : # Yk+1 = Yk - m
     i = 0
@@ -69,6 +82,8 @@ def DDA_Y(recta, case):
         #print "A: " , recta.getPoints()[0] , "B: " , recta.getPoints()[1]
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
         #print "A: " , A , "B: " , B
+    print "A2: " ,  recta.getPoints()[0]
+    print "B2: " ,  recta.getPoints()[1]
     parada = recta.getPoints()[1]
     print "punto de llegada: " , parada
     while(True):
@@ -79,7 +94,6 @@ def DDA_Y(recta, case):
         new_y = int(round(pivote[1] + recta.getPendiente()))
         new_x = int(round(( int(new_y) - recta.getb() ) / recta.getPendiente()))
         new_point = [new_x,new_y]
-        #new_rect = R(pivote,new_point) #recta que se genera
         #libreria1.DrawPixel(new_point, AZUL)
         print "New point: " , new_point
         libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
