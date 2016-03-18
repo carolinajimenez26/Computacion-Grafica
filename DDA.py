@@ -31,7 +31,7 @@ class R:#recta
         return [self.pi, self.pf] #[[x1,y1],[x2,y2]]
 
     def getb(self): # b = y - mx
-        self.pi[1] - self.getPendiente()*self.pi[0]
+        return self.pi[1] - self.getPendiente()*self.pi[0]
 
     def getEcuation(self): # y = mx + b
         return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
@@ -49,7 +49,8 @@ def DDA_X(recta, case):
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
-        libreria1.DrawPixel(pivote, AZUL)
+        #libreria1.DrawPixel(pivote, AZUL)
+        libreria1.makeCircle(pivote,1,VERDE)
         new_x = round( pivote[0] + (1/recta.getPendiente()) )
         new_y = round(recta.getPendiente()*new_x + recta.getb())
         new_point = [new_x,new_y]
@@ -62,19 +63,29 @@ def DDA_X(recta, case):
 def DDA_Y(recta, case):
     # case 0 : # Yk+1 = Yk + m
     # case 1 : # Yk+1 = Yk - m
+    i = 0
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
+        #print "A: " , recta.getPoints()[0] , "B: " , recta.getPoints()[1]
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
+        #print "A: " , A , "B: " , B
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
-        libreria1.DrawPixel(pivote, AZUL)
-        new_y = round(pivote[1] + recta.getPendiente())
-        new_x = round(( new_y - recta.getb() ) / recta.getPendiente())
+        #libreria1.DrawPixel(pivote, AZUL) #NO QUIERE SERVIR
+        libreria1.makeCircle(libreria1.Transform(pivote),1,VERDE)
+        print "pivote: " , pivote
+        new_y = int(round(pivote[1] + recta.getPendiente()))
+        new_x = int(round(( int(new_y) - recta.getb() ) / recta.getPendiente()))
         new_point = [new_x,new_y]
         new_rect = R(pivote,new_point) #recta que se genera
-        libreria1.DrawPixel(new_point, AZUL)
-        if(new_y <= pivote[1]): #Yk+1 <= Yk
+        #libreria1.DrawPixel(new_point, AZUL)
+        print "New point: " , new_point
+        libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
+        if(new_y <= pivote[1] or i == 2): #Yk+1 <= Yk
             return #parada
-        pivote = new_rect #actualiza
+        print "r1: " , recta.getEcuation()
+        recta = new_rect
+        print "r2: " , recta.getEcuation()
+        i+=1
 
 
 Ax = int(input("Ax: "))
@@ -85,7 +96,7 @@ By = int(input("By: "))
 libreria1.makePlane()
 
 recta = R([Ax,Ay],[Bx,By])
-
+print "Pendiente: " , recta.getPendiente()
 if(recta.getPendiente() <= 1): # m <= 1
     if(Ay > By):
         DDA_Y(recta,1) # Yk+1 = Yk - m
