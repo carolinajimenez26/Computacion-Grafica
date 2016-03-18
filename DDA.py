@@ -18,7 +18,7 @@ class R:#recta
     def getPendiente(self): # m = (y2-y1)/(x2-x1)
         x = self.pf[0]-self.pi[0]
         if(x != 0):
-            return (self.pf[1]-self.pi[1])/x
+            return float((self.pf[1]-self.pi[1])/x)
         else :
             print "Pendiente indefinida"
             return
@@ -46,7 +46,7 @@ def DDA_X(recta, case):
     # case 0 : Xk+1 = Xk + 1/m
     # case 1 : Xk+1 = Xk + 1/(-m)
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
-        [A,B] = swap(recta.getPoints())
+        [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
         libreria1.DrawPixel(pivote, AZUL)
@@ -63,12 +63,12 @@ def DDA_Y(recta, case):
     # case 0 : # Yk+1 = Yk + m
     # case 1 : # Yk+1 = Yk - m
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
-        [A,B] = swap(recta.getPoints())
+        [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
         libreria1.DrawPixel(pivote, AZUL)
         new_y = round(pivote[1] + recta.getPendiente())
-        new_x = round(( new_y - recta.getb() ) x/ recta.getPendiente())
+        new_x = round(( new_y - recta.getb() ) / recta.getPendiente())
         new_point = [new_x,new_y]
         new_rect = R(pivote,new_point) #recta que se genera
         libreria1.DrawPixel(new_point, AZUL)
