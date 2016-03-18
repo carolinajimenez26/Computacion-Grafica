@@ -1,6 +1,7 @@
 #Algoritmo DDA
 import pygame
 import sys
+import copy
 import libreria1
 
 
@@ -68,6 +69,8 @@ def DDA_Y(recta, case):
         #print "A: " , recta.getPoints()[0] , "B: " , recta.getPoints()[1]
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
         #print "A: " , A , "B: " , B
+    parada = recta.getPoints()[1]
+    print "punto de llegada: " , parada
     while(True):
         pivote = recta.getPoints()[0] # recta.[x1,y1]
         #libreria1.DrawPixel(pivote, AZUL) #NO QUIERE SERVIR
@@ -76,15 +79,15 @@ def DDA_Y(recta, case):
         new_y = int(round(pivote[1] + recta.getPendiente()))
         new_x = int(round(( int(new_y) - recta.getb() ) / recta.getPendiente()))
         new_point = [new_x,new_y]
-        new_rect = R(pivote,new_point) #recta que se genera
+        #new_rect = R(pivote,new_point) #recta que se genera
         #libreria1.DrawPixel(new_point, AZUL)
         print "New point: " , new_point
         libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
-        if(new_y <= pivote[1] or i == 2): #Yk+1 <= Yk
+        if(new_y <= parada[1] ):#or i == 10): #Yk+1 <= Yk
             return #parada
-        print "r1: " , recta.getEcuation()
-        recta = new_rect
-        print "r2: " , recta.getEcuation()
+        print "parada: " , parada
+        print "new_y: " , new_y
+        recta.setPoints([new_x,new_y],recta.getPoints()[1]) #recta = new_rect
         i+=1
 
 
