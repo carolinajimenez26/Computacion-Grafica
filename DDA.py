@@ -46,10 +46,14 @@ def swap(p1,p2):#intercambia dos puntos
 
 def DDA_X(recta, case):
     print "DDA_X"
+    print "A1: " ,  recta.getPoints()[0]
+    print "B1: " ,  recta.getPoints()[1]
     # case 0 : Xk+1 = Xk + 1/m
     # case 1 : Xk+1 = Xk + 1/(-m)
+    print "CASO:" , case
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
+        recta.setPoints(A,B)
     parada = recta.getPoints()[1]
     print "punto de llegada: " , parada
     while(True):
@@ -72,18 +76,18 @@ def DDA_X(recta, case):
         recta.setPoints([new_x,new_y],recta.getPoints()[1]) #actualiza
 
 def DDA_Y(recta, case):
+    print "DDA_Y"
     print "A1: " ,  recta.getPoints()[0]
     print "B1: " ,  recta.getPoints()[1]
-    print "DDA_Y"
     # case 0 : # Yk+1 = Yk + m
     # case 1 : # Yk+1 = Yk - m
+    print "CASO:" , case
     i = 0
-    if(case == 1):#ya no vamos de A hacia B, si no al contrario
+    if(case == 0):#ya no vamos de A hacia B, si no al contrario
         #print "A: " , recta.getPoints()[0] , "B: " , recta.getPoints()[1]
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
-        #print "A: " , A , "B: " , B
-    print "A2: " ,  recta.getPoints()[0]
-    print "B2: " ,  recta.getPoints()[1]
+        recta.setPoints(A,B)
+        print "A: " , A , "B: " , B
     parada = recta.getPoints()[1]
     print "punto de llegada: " , parada
     while(True):
@@ -105,12 +109,29 @@ def DDA_Y(recta, case):
         i+=1
 
 
-Ax = int(input("Ax: "))
+'''Ax = int(input("Ax: "))
 Ay = int(input("Ay: "))
 Bx = int(input("Bx: "))
-By = int(input("By: "))
+By = int(input("By: "))'''
+'''Ax = 20
+Ay = 20
+Bx = 60
+By = 120'''
+
+#Funcionando:
+'''Ax = 20
+Ay = 120
+Bx = 50
+By = 20
+
+Bx = 20
+By = 120
+Ax = 50
+Ay = 20'''
 
 libreria1.makePlane()
+libreria1.makeCircle(libreria1.Transform([Ax,Ay]),1,AZUL)
+libreria1.makeCircle(libreria1.Transform([Bx,By]),1,AZUL)
 
 recta = R([Ax,Ay],[Bx,By])
 print "Pendiente: " , recta.getPendiente()
