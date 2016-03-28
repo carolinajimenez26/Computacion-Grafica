@@ -51,29 +51,61 @@ def DDA_X(recta, case):
     # case 0 : Xk+1 = Xk + 1/m
     # case 1 : Xk+1 = Xk + 1/(-m)
     print "CASO:" , case
+    i = 0
     if(case == 1):#ya no vamos de A hacia B, si no al contrario
         [A,B] = swap(recta.getPoints()[0],recta.getPoints()[1])
         recta.setPoints(A,B)
+        print "A: " , A , "B: " , B
     parada = recta.getPoints()[1]
     print "punto de llegada: " , parada
     while(True):
+
+
+
         pivote = recta.getPoints()[0] # recta.[x1,y1]
         print "pivote: " , pivote
         #libreria1.DrawPixel(pivote, AZUL)
         libreria1.makeCircle(libreria1.Transform(pivote),1,VERDE)
+        d_x = float(parada[0] - recta.getPoints()[0][0])  #x2-x1
+        print "recta.getPoints()[0][0] : " , recta.getPoints()[0][0]
+        print "parada[0] : " , parada[0]
+        print "d_x : " , d_x
+        m = 1/d_x #En esta se calcula con la pendiente nueva, no con la original
+        print "m : " , m
+        print ""
         new_x = int(round( pivote[0] + (1/recta.getPendiente()) ))
+        print "pivote[0] : " , pivote[0]
+        print "recta.getPendiente() : " , recta.getPendiente()
+        print "1 / recta.getPendiente() : " , 1/recta.getPendiente()
+        print "suma : " , pivote[0] + (1/recta.getPendiente())
+        print "round : " , round(pivote[0] + (1/recta.getPendiente()))
+        print "new_x : " , new_x
+        print ""
         new_y = int(round(recta.getPendiente()*new_x + recta.getb()))
+        print "recta.getPendiente() : " , recta.getPendiente()
+        print "new_x : " , new_x
+        print "mult : " , recta.getPendiente()*new_x
+        print "recta.getb()" , recta.getb()
+        print "round : " , round(recta.getPendiente()*new_x + recta.getb())
+        print "new_y : " , new_y
+
+
         new_point = [new_x,new_y]
         print "New point: " , new_point
+
+
+
+        return
         libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
         #ibreria1.DrawPixel(new_point, AZUL)
         print "new_x: " , new_x
         print "parada[0]: " , parada[0]
-        if(new_x >= parada[0]): #Xk+1 >= Xk
+        if(new_x >= parada[0] or i == 10): #Xk+1 >= Xk
             return #parada
         print "parada: " , parada
         print "new_y: " , new_y
         recta.setPoints([new_x,new_y],recta.getPoints()[1]) #actualiza
+        i+=1
 
 def DDA_Y(recta, case):
     print "DDA_Y"
@@ -113,10 +145,16 @@ def DDA_Y(recta, case):
 Ay = int(input("Ay: "))
 Bx = int(input("Bx: "))
 By = int(input("By: "))'''
+
 '''Ax = 20
 Ay = 20
 Bx = 60
 By = 120'''
+
+Bx = 20
+By = 20
+Ax = 60
+Ay = 120
 
 #Funcionando:
 '''Ax = 20
@@ -135,6 +173,7 @@ libreria1.makeCircle(libreria1.Transform([Bx,By]),1,AZUL)
 
 recta = R([Ax,Ay],[Bx,By])
 print "Pendiente: " , recta.getPendiente()
+
 if(recta.getPendiente() <= 1): # m <= 1
     if(Ay > By):
         DDA_Y(recta,1) # Yk+1 = Yk - m
