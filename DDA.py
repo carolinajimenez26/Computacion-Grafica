@@ -59,48 +59,32 @@ def DDA_X(recta, case):
     parada = recta.getPoints()[1]
     print "punto de llegada: " , parada
     while(True):
-
-
-
         pivote = recta.getPoints()[0] # recta.[x1,y1]
         print "pivote: " , pivote
         #libreria1.DrawPixel(pivote, AZUL)
         libreria1.makeCircle(libreria1.Transform(pivote),1,VERDE)
         d_x = float(parada[0] - recta.getPoints()[0][0])  #x2-x1
-        print "recta.getPoints()[0][0] : " , recta.getPoints()[0][0]
-        print "parada[0] : " , parada[0]
         print "d_x : " , d_x
         m = 1/d_x #En esta se calcula con la pendiente nueva, no con la original
-        b = pivote[1] - d_x*pivote[0]
-        print "m : " , m
-        print "b : " , b
-        print ""
-
-        new_x = int(round( pivote[0] + m ))
+        b = pivote[1] - d_x*pivote[0] #el b tambien se vuelve a calcular
+        new_x = int(round( pivote[0] + m))
+        #new_x = pivote[0] + d_x
         print "pivote[0] : " , pivote[0]
+        print "m : " , m
         print "suma : " , pivote[0] + m
-        print "round : " , round(pivote[0] + m)
-        print "new_x : " , new_x
-        print ""
+        print "round : " , round( pivote[0] + m )
 
         new_y = int(round(d_x*(pivote[0] + m) + b))
-        print "mult : " , d_x*(pivote[0] + m)
-        print "suma : " , d_x*(pivote[0] + m) + b
-        print "round : " , round(d_x*(pivote[0] + m) + b)
-        print "new_y : " , new_y
-
-
         new_point = [new_x,new_y]
         print "New point: " , new_point
-
-        print "-----------------------------"
-
-        #return
         libreria1.makeCircle(libreria1.Transform(new_point),1,VERDE)
         #ibreria1.DrawPixel(new_point, AZUL)
         print "new_x: " , new_x
         print "parada[0]: " , parada[0]
-        if(new_x >= parada[0] or i == 10): #Xk+1 >= Xk
+
+        print "-----------------------"
+
+        if(new_x >= parada[0] ):#or i == 10): #Xk+1 >= Xk
             return #parada
         print "parada: " , parada
         print "new_y: " , new_y
