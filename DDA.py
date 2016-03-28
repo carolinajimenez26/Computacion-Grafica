@@ -67,12 +67,12 @@ def DDA_X(recta, case):
         print "d_x : " , d_x
         m = 1/d_x #En esta se calcula con la pendiente nueva, no con la original
         b = pivote[1] - d_x*pivote[0] #el b tambien se vuelve a calcular
-        new_x = int(round( pivote[0] + m))
+        new_x = int(round( pivote[0] + 1/m))
         #new_x = pivote[0] + d_x
         print "pivote[0] : " , pivote[0]
         print "m : " , m
         print "suma : " , pivote[0] + m
-        print "round : " , round( pivote[0] + m )
+        print "round : " , round( pivote[0] + 1/m )
 
         new_y = int(round(d_x*(pivote[0] + m) + b))
         new_point = [new_x,new_y]
