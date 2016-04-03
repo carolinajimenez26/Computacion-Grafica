@@ -15,6 +15,33 @@ BLANCO = (255,255,255)
 
 pantalla = pygame.display.set_mode([ANCHO,ALTO])
 
+class R:#recta
+    def __init__(self,pi,pf): #recibe los puntos
+        self.pi = pi # [x1,y1]
+        self.pf = pf # [x2,y2]
+
+    def getPendiente(self): # m = (y2-y1)/(x2-x1)
+        x = float(self.pf[0])-float(self.pi[0])
+        if(x != 0):
+            y = float(self.pf[1])-float(self.pi[1])
+            return float(y/x)
+        else :
+            print "Pendiente indefinida"
+            return float('Inf') #tiende a infinito, no es infinito
+
+    def setPoints(self,pi,pf):
+        self.pi = pi
+        self.pf = pf
+
+    def getPoints(self):
+        return [self.pi, self.pf] #[[x1,y1],[x2,y2]]
+
+    def getb(self): # b = y - mx
+        return self.pi[1] - self.getPendiente()*self.pi[0]
+
+    def getEcuation(self): # y = mx + b
+        return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
+
 class V:#vector
     def __init__(self,pi,pf):#pi = x1,y1, pf = x2,y2
         self.pf = pf
@@ -191,3 +218,9 @@ def DegToRad(d):#grados a radianes
 def DrawPixel(p,color):
     pantalla.set_at(p,color)
     pygame.display.flip()
+
+def swap(p1,p2):#intercambia dos puntos
+    tmp = p1
+    p1 = p2
+    p2 = tmp
+    return [p1,p2]
