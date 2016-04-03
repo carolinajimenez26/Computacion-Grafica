@@ -190,3 +190,4 @@ def DegToRad(d):#grados a radianes
 
 def DrawPixel(p,color):
     pantalla.set_at(p,color)
+    pygame.display.flip()
