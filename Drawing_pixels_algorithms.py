@@ -10,10 +10,6 @@ AZUL = (0,0,255)
 BLANCO = (255,255,255)
 NEGRO = (0,0,0)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b57d2fcbc81351f2a45fd66956e6d65919096b7
 def DDA(recta):
     m = recta.getPendiente()
     parada = recta.getPoints()[1]
