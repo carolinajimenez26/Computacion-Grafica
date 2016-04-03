@@ -37,12 +37,12 @@ Ax = 20
 Ay = 30
 Bx = 20
 By = 80
-
-#cPara que haga el swap
+'''
+#Para que haga el swap
 Ax = 50
 Ay = 20
 Bx = 20
-By = 120'''
+By = 120
 
 
 recta = libreria1.R([Ax,Ay],[Bx,By])

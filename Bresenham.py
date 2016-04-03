@@ -11,42 +11,41 @@ AZUL = (0,0,255)
 BLANCO = (255,255,255)
 NEGRO = (0,0,0)
 
-class R:#recta
-    def __init__(self,pi,pf): #recibe los puntos
-        self.pi = pi # [x1,y1]
-        self.pf = pf # [x2,y2]
-
-    def getPendiente(self): # m = (y2-y1)/(x2-x1)
-        x = float(self.pf[0])-float(self.pi[0])
-        if(x != 0):
-            y = float(self.pf[1])-float(self.pi[1])
-            return float(y/x)
-        else :
-            print "Pendiente indefinida"
-            return
-
-    def setPoints(self,pi,pf):
-        self.pi = pi
-        self.pf = pf
-
-    def getPoints(self):
-        return [self.pi, self.pf] #[[x1,y1],[x2,y2]]
-
-    def getb(self): # b = y - mx
-        return self.pi[1] - self.getPendiente()*self.pi[0]
-
-    def getEcuation(self): # y = mx + b
-        return "y = " + str(self.getPendiente()) + "x + " + str(self.getb())
-
-
-def swap(p1,p2):#intercambia dos puntos
-    tmp = p1
-    p1 = p2
-    p2 = tmp
-    return [p1,p2]
 
 def Bresenham(recta):
-    pass
+
+    if(recta.getPoints()[0][0] > recta.getPoints()[1][0]): # Ax > Bx
+        [A,B] = libreria1.swap(recta.getPoints()[0],recta.getPoints()[1])
+        recta.setPoints(A,B)
+
+    parada = recta.getPoints()[1]
+    x_new = recta.getPoints()[0][0]#inicializamos
+    y_new = recta.getPoints()[0][1]
+    p_new = libreria1.Transform([x_new,y_new])
+    libreria1.DrawPixel(p_new,VERDE)
+
+    d_y =  recta.getPoints()[1][1] - recta.getPoints()[0][1] #y2-y1
+    d_x =  recta.getPoints()[1][0] - recta.getPoints()[0][0] #x2-x1
+    c = 2*d_y + 2*d_x*recta.getb() - d_x
+
+    if(m > 0 and m < 1): # 0 < m < 1
+
+        while(x_new <= parada[0]): #xk <= xfinal
+
+            pk = 2*dy*x_new - 2*d_x*y_new + c #criterio de decision
+
+            if(pk < 0) : #d1 < d2
+                # hay que pintar (xk+1,yk)
+                y_new += 0 #innecesario de poner
+
+            else : #d1 > d2
+                # hay que pintar (xk+1,yk+1)
+                y_new += 1
+
+            x_new += 1
+            p_new = libreria1.Transform([x_new,y_new])
+            libreria1.DrawPixel(p_new,VERDE)
+
 
 '''Ax = int(input("Ax: "))
 Ay = int(input("Ay: "))
@@ -58,11 +57,36 @@ Ay = 20
 Bx = 60
 By = 120
 
+'''
+#m < 1
+Ax = 20
+Ay = 30
+Bx = 120
+By = 80
+
+#m > 1
+Ax = 10
+Ay = 20
+Bx = 80
+By = 120
+
+#m indeterminado (x2-x1)=0
+Ax = 20
+Ay = 30
+Bx = 20
+By = 80
+
+#cPara que haga el swap
+Ax = 50
+Ay = 20
+Bx = 20
+By = 120'''
+
 libreria1.makePlane()
 libreria1.makeCircle(libreria1.Transform([Ax,Ay]),1,AZUL)
 libreria1.makeCircle(libreria1.Transform([Bx,By]),1,AZUL)
 
-recta = R([Ax,Ay],[Bx,By])
+recta = libreria1.R([Ax,Ay],[Bx,By])
 print "Pendiente: " , recta.getPendiente()
 
 while True:
