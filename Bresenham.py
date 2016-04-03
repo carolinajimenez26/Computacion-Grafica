@@ -23,16 +23,18 @@ def Bresenham(recta):
     y_new = recta.getPoints()[0][1]
     p_new = libreria1.Transform([x_new,y_new])
     libreria1.DrawPixel(p_new,VERDE)
+    print "parada : " , parada
+    print "p_new : " , [x_new,y_new]
 
     d_y =  recta.getPoints()[1][1] - recta.getPoints()[0][1] #y2-y1
     d_x =  recta.getPoints()[1][0] - recta.getPoints()[0][0] #x2-x1
     c = 2*d_y + 2*d_x*recta.getb() - d_x
 
-    if(m > 0 and m < 1): # 0 < m < 1
+    if(recta.getPendiente() > 0 and recta.getPendiente() < 1): # 0 < m < 1
 
         while(x_new <= parada[0]): #xk <= xfinal
 
-            pk = 2*dy*x_new - 2*d_x*y_new + c #criterio de decision
+            pk = 2*d_y*x_new - 2*d_x*y_new + c #criterio de decision
 
             if(pk < 0) : #d1 < d2
                 # hay que pintar (xk+1,yk)
@@ -52,19 +54,28 @@ Ay = int(input("Ay: "))
 Bx = int(input("Bx: "))
 By = int(input("By: "))'''
 
+# m = 2.5
 Ax = 20
 Ay = 20
 Bx = 60
 By = 120
 
-'''
 #m < 1
+# m = 0.5
 Ax = 20
 Ay = 30
 Bx = 120
 By = 80
 
+# m = 0.9
+Ax = 20
+Ay = 10
+Bx = 120
+By = 100
+
+'''
 #m > 1
+m = 1.428
 Ax = 10
 Ay = 20
 Bx = 80
@@ -76,7 +87,8 @@ Ay = 30
 Bx = 20
 By = 80
 
-#cPara que haga el swap
+#Para que haga el swap
+# m = -3.333
 Ax = 50
 Ay = 20
 Bx = 20
@@ -88,6 +100,8 @@ libreria1.makeCircle(libreria1.Transform([Bx,By]),1,AZUL)
 
 recta = libreria1.R([Ax,Ay],[Bx,By])
 print "Pendiente: " , recta.getPendiente()
+
+Bresenham(recta)
 
 while True:
     for event in pygame.event.get():
