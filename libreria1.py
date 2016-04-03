@@ -189,7 +189,7 @@ def Transform(p): #transforma un punto de la pantalla al plano cartesiano
     return [(CENTRO[0] + p[0]), (CENTRO[1] - p[1])]
 
 def AntiTransform(p): #transforma un punto del plano cartesiano a la pantalla
-    return [(CENTRO[0] - p[0]),(CENTRO[1] + p[1])]
+    return [p[0] - CENTRO[0], CENTRO[1] - p[1]]
 
 def Rote(p,a): #puntos, angulo. Retorna un punto
     return [float(p[0]*math.cos(a) - p[1]*math.sin(a)), float(p[0]*math.sin(a) + p[1]*math.cos(a))]
