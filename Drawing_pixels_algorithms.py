@@ -13,6 +13,7 @@ NEGRO = (0,0,0)
 def DDA(recta):
 
     m = recta.getPendiente()
+    print "m : " , m
 
     if(recta.getPoints()[0][1] > recta.getPoints()[1][1] or recta.getPoints()[0][0] > recta.getPoints()[1][0]): #Ay > By or Ax > Bx
         [A,B] = libreria1.swap(recta.getPoints()[0],recta.getPoints()[1])
@@ -26,6 +27,9 @@ def DDA(recta):
 
     if(m <= 1):#incrementa en X
 
+        '''if(recta.getPoints()[0][0] > recta.getPoints()[1][0]):
+            m *= -1'''
+
         while(x_new <= parada[0]):
             libreria1.DrawPixel(p_new,VERDE)
             print "plotted : " , libreria1.AntiTransform(p_new)
@@ -35,6 +39,9 @@ def DDA(recta):
             p_new = libreria1.Transform([x_new,y_plotted])
 
     if(m > 1):#incrementa en Y
+
+        '''if(recta.getPoints()[0][1] > recta.getPoints()[1][1]):
+            m *= -1'''
 
         while(y_new <= parada[1]):
             x_new = x_new + 1 / m
