@@ -15,13 +15,13 @@ NEGRO = (0,0,0)
 '''Ax = int(input("Ax: "))
 Ay = int(input("Ay: "))
 Bx = int(input("Bx: "))
-By = int(input("By: "))'''
+By = int(input("By: "))
 
-# m = 2.5
+#m = 0
 Ax = 20
 Ay = 20
-Bx = 60
-By = 120
+Bx = 100
+By = 20
 
 #m < 1
 # m = 0.5
@@ -31,19 +31,26 @@ Bx = 120
 By = 80
 
 # m = 0.9
-Ax = 20
-Ay = 10
-Bx = 120
-By = 100
+Bx = 20
+By = 10
+Ax = 120
+Ay = 100
 
+# m = 1
+Ax = 0
+Ay = 0
+Bx = 100
+By = 100
 '''
-#m > 1
-m = 1.428
-Ax = 10
+
+# m = 2.5
+Ax = 20
 Ay = 20
-Bx = 80
+Bx = 60
 By = 120
 
+
+'''
 #m indeterminado (x2-x1)=0
 Ax = 20
 Ay = 30

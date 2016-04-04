@@ -68,7 +68,7 @@ def Bresenham(recta):
     d_x =  recta.getPoints()[1][0] - recta.getPoints()[0][0] #x2-x1
     c = 2*d_y + 2*d_x*recta.getb() - d_x
 
-    if(recta.getPendiente() > 0 and recta.getPendiente() < 1): # 0 < m < 1
+    if(recta.getPendiente() >= 0 and recta.getPendiente() <= 1): #  pendiente tiende a ser horizontal
 
         while(x_new <= parada[0]): #xk <= xfinal
 
@@ -84,3 +84,24 @@ def Bresenham(recta):
             x_new += 1
             p_new = libreria1.Transform([x_new,y_new])
             libreria1.DrawPixel(p_new,VERDE)
+
+    if(recta.getPendiente() > 1): #  pendiente tiende a ser mas vertical que horizontal
+        #ARREGLAR
+        c = 2*d_x + 2*d_y*recta.getb() - d_y
+
+        while(y_new <= parada[1]): #yk <= yfinal
+
+            pk = 2*d_x*x_new - 2*d_y*y_new + c #criterio de decision
+
+            if(pk < 0) :
+                # hay que pintar (xk+1,yk+1)
+                x_new += 1 #innecesario de poner
+
+            #else :
+                # hay que pintar (xk,yk+1)
+
+            y_new += 1
+            p_new = libreria1.Transform([x_new,y_new])
+            libreria1.DrawPixel(p_new,VERDE)
+
+    #if(recta.getPendiente() <= 0): #pendientes negativas
