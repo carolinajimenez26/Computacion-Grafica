@@ -55,7 +55,11 @@ def DDA(recta):
 def Bresenham(recta):
 
     if(recta.getPoints()[0][0] > recta.getPoints()[1][0]): # Ax > Bx
+        print "Ax : " , recta.getPoints()[0][0]
+        print "Bx : " , recta.getPoints()[1][0]
         [A,B] = libreria1.swap(recta.getPoints()[0],recta.getPoints()[1])
+        print "new A : " , A
+        print "new B : " , B
         recta.setPoints(A,B)
 
     parada = recta.getPoints()[1]
@@ -69,7 +73,6 @@ def Bresenham(recta):
     c = 2*d_y + 2*d_x*recta.getb() - d_x
 
     if(recta.getPendiente() >= 0 and recta.getPendiente() <= 1): #  pendiente tiende a ser horizontal
-
         while(x_new <= parada[0]): #xk <= xfinal
 
             pk = 2*d_y*x_new - 2*d_x*y_new + c #criterio de decision
@@ -104,4 +107,6 @@ def Bresenham(recta):
             p_new = libreria1.Transform([x_new,y_new])
             libreria1.DrawPixel(p_new,VERDE)
 
-    #if(recta.getPendiente() <= 0): #pendientes negativas
+    if(recta.getPendiente() <= 0): #pendientes negativas
+        print "pendiente negativa"
+        pass

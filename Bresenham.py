@@ -49,7 +49,12 @@ Ay = 20
 Bx = 60
 By = 120
 
-
+#Para que haga el swap
+# m = -3.333
+Ax = 50
+Ay = 20
+Bx = 20
+By = 120
 '''
 #m indeterminado (x2-x1)=0
 Ax = 20
