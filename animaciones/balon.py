@@ -7,79 +7,81 @@ ancho = 500
 BLANCO =(250,250,250)
 
 def move(obj, case, times):
-
-    if(case == 0): #arriba a abajo
-        x = ancho/2 - marco[2] / 2
-        y = 0
-        pto = [x,y]
-        pantalla.blit(obj,pto)
-        pygame.display.flip()
-        print "ciclo : " , times*marco[3]
-        for i in range (0,times*(alto/5)):
-            print "i : " , i
-            y+= 5
+        if(case == 0): #arriba a abajo
+            x = ancho/2 - marco[2] / 2
+            y = 0
             pto = [x,y]
-            pantalla.fill(BLANCO)
             pantalla.blit(obj,pto)
-            reloj.tick(60)
             pygame.display.flip()
 
-            if(y >= alto + marco[3]):
-                y = marco[3]*-1
+            while(times != 0):
+                y+= 5
+                pto = [x,y]
+                pantalla.fill(BLANCO)
+                pantalla.blit(obj,pto)
+                reloj.tick(60)
+                pygame.display.flip()
 
-    if(case == 1):#izq a derecha
-        x = 0
-        y = alto/2 - marco[3] / 2
-        pto = [x,y]
-        pantalla.blit(obj,pto)
-        pygame.display.flip()
+                if(y >= alto + marco[3]):
+                    y = marco[3]*-1
+                    times -= 1
 
-        for i in range (0,times*(ancho/5)):
-            x+= 5
+        if(case == 1):#izq a derecha
+            x = 0
+            y = alto/2 - marco[3] / 2
             pto = [x,y]
-            pantalla.fill(BLANCO)
             pantalla.blit(obj,pto)
-            reloj.tick(60)
             pygame.display.flip()
 
-            if(x >= ancho + marco[2]):
-                x = marco[2]*-1
+            while(times != 0):
+                x+= 5
+                pto = [x,y]
+                pantalla.fill(BLANCO)
+                pantalla.blit(obj,pto)
+                reloj.tick(60)
+                pygame.display.flip()
 
-    if(case == 2):#derecha a izq
-        x = ancho
-        y = alto/2 - marco[3] / 2
-        pto = [x,y]
-        pantalla.blit(obj,pto)
-        pygame.display.flip()
+                if(x >= ancho + marco[2]):
+                    x = marco[2]*-1
+                    times -= 1
 
-        for i in range (0,times*(ancho/5)):
-            x-= 5
+        if(case == 2):#derecha a izq
+            x = ancho
+            y = alto/2 - marco[3] / 2
             pto = [x,y]
-            pantalla.fill(BLANCO)
             pantalla.blit(obj,pto)
-            reloj.tick(60)
             pygame.display.flip()
 
-            if(x <= 0 - marco[2]):
-                x = ancho
+            while(times != 0):
+                x-= 5
+                pto = [x,y]
+                pantalla.fill(BLANCO)
+                pantalla.blit(obj,pto)
+                reloj.tick(60)
+                pygame.display.flip()
 
-    if(case == 3):#abajo a a arriba
-        x = ancho/2 - marco[2] / 2
-        y = alto
-        pto = [x,y]
-        pantalla.blit(obj,pto)
-        pygame.display.flip()
+                if(x <= 0 - marco[2]):
+                    x = ancho
+                    times -= 1
 
-        for i in range (0,times*(alto/5)):
-            y-= 5
+        if(case == 3):#abajo a a arriba
+            x = ancho/2 - marco[2] / 2
+            y = alto
             pto = [x,y]
-            pantalla.fill(BLANCO)
             pantalla.blit(obj,pto)
-            reloj.tick(60)
             pygame.display.flip()
 
-            if(y <= 0 - marco[3]):
-                y = alto + marco[3]
+            while(times != 0):
+                y-= 5
+                pto = [x,y]
+                pantalla.fill(BLANCO)
+                pantalla.blit(obj,pto)
+                reloj.tick(60)
+                pygame.display.flip()
+
+                if(y <= 0 - marco[3]):
+                    y = alto + marco[3]
+                    times -= 1
 
 
 pantalla = pygame.display.set_mode([ancho,alto])
@@ -93,7 +95,7 @@ reloj = pygame.time.Clock()
 
 terminar = False
 
-move(balon, 3, 4)
+move(balon, 0, 3)
 
 while (not terminar):
 
