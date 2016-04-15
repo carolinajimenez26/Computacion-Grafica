@@ -50,7 +50,7 @@ class Player(pygame.sprite.Sprite): #Hereda de la clase sprite
 		self.rect.y = pos[1]
 
 	def getVidas(self):
-		return vidas
+		return self.vidas
 
 	def setVidas(self,vidas):
 		self.vidas = vidas
@@ -159,4 +159,4 @@ if __name__ == '__main__':
 		ls_choque = pygame.sprite.spritecollide(ship, ls_enemies, False)
 		for elements in ls_choque:
 			print "choque"
-			#ship.setVidas(ship.getVidas()-1)#le quita una vida
+			ship.setVidas(ship.getVidas()-1)#le quita una vida
